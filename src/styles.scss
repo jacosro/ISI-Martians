@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+$mdc-theme-primary: #0072ff; // primary color example
+$mdc-theme-secondary: #8e500c; // secondary color example
+$mdc-typography-font-family: "Montserrat";
+@import "~@angular-mdc/theme/material";
 
 html, body {
   min-height: 100vh;
   height: auto;
   margin: 0;
 }
+

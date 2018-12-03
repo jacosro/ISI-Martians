@@ -1,46 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule} from '@angular/material';
-
-
-
+import {MdcButtonModule, MdcTextFieldModule, MdcIconModule, MdcFabModule, MdcTopAppBarModule, MdcDrawerModule,
+        MdcListModule, MdcIconButtonModule
+} from '@angular-mdc/web';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { MothershipComponent } from './mothership/mothership.component';
-import { AirshipComponent } from './airship/airship.component';
-
-const appRoutes: Routes = [
-  {path: '', component: MothershipComponent},
-  {path: 'mothership', component: MothershipComponent},
-  {path: 'airship', component: AirshipComponent}
-];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavigationComponent,
-    MothershipComponent,
-    AirshipComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(
-      appRoutes, {
-        useHash: true
-      }
-    ),
-    MatButtonModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    BrowserAnimationsModule
+    MdcButtonModule,
+    MdcFabModule,
+    MdcIconButtonModule,
+    MdcTopAppBarModule,
+    MdcTextFieldModule,
+    MdcDrawerModule,
+    MdcListModule,
+    MdcIconModule,
+    MdcFabModule
   ],
   providers: [],
   bootstrap: [AppComponent]
