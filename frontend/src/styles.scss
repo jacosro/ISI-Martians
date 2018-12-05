@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-$mdc-theme-primary: #0072ff; // primary color example
-$mdc-theme-secondary: #8e500c; // secondary color example
+$mdc-theme-primary: #145BB8; // primary color example
+$mdc-theme-secondary: #000; // secondary color example
 $mdc-typography-font-family: "Montserrat";
 @import "~@angular-mdc/theme/material";
 
@@ -8,5 +8,27 @@ html, body {
   min-height: 100vh;
   height: auto;
   margin: 0;
+}
+
+.app-form {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  width: fit-content;
+  padding: 1%;
+  border-radius: 8px;
+}
+
+.app-form-field{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.app-form-button {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 

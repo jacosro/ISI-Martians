@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MdcButtonModule, MdcTextFieldModule, MdcIconModule, MdcFabModule, MdcTopAppBarModule, MdcDrawerModule,
-        MdcListModule, MdcIconButtonModule
+        MdcListModule, MdcIconButtonModule, MdcElevationModule
 } from '@angular-mdc/web';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,7 @@ const appRoutes: Routes = [
     MdcButtonModule,
     MdcFabModule,
     MdcIconButtonModule,
+    MdcElevationModule,
     MdcTopAppBarModule,
     MdcTextFieldModule,
     MdcDrawerModule,
