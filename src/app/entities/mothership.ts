@@ -1,0 +1,4 @@
+interface Mothership {
+  id: string;
+
+}
