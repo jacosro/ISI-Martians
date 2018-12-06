@@ -10,13 +10,13 @@
   <mdc-drawer-header title="Gestionar"></mdc-drawer-header>
   <mdc-drawer-content>
     <mdc-list useActivatedClass>
-      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['create-mothership']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Naves nodrizas</mdc-list-item>
-      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['create-airship']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Aeronaves</mdc-list-item>
-      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['create-passenger']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Pasajeros</mdc-list-item>
+      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['list-mothership']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Naves nodrizas</mdc-list-item>
+      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['list-spaceship']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Aeronaves</mdc-list-item>
+      <mdc-list-item (click)="appdrawer.open = !appdrawer.open" [routerLink]="['list-passenger']" routerLinkActive #rlaHome="routerLinkActive"><mdc-icon mdcListItemGraphic>person</mdc-icon>Pasajeros</mdc-list-item>
     </mdc-list>
   </mdc-drawer-content>
 </mdc-drawer>
 
-<div mdcDrawerAppContent mdcTopAppBarFixedAdjust>
+<div mdcDrawerAppContent mdcTopAppBarFixedAdjust style="display: flex; justify-content: center;">
   <router-outlet></router-outlet>
 </div>
