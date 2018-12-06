@@ -6,27 +6,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-passenger.component.scss']
 })
 export class ListPassengerComponent implements OnInit {
-  columnsToDisplay = ['userName', 'age'];
-  myData: Persona[] = [
-    {name: 'Antoni', age: '18'},
-    {name: 'Antoni', age: '18'},
-    {name: 'Antoni', age: '18'},
-    {name: 'Antoni', age: '18'},
-    {name: 'Antoni', age: '18'},
-    {name: 'B', age: '19'},
-    {name: 'B', age: '19'},
-    {name: 'B', age: '19'},
-    {name: 'B', age: '19'},
-    {name: 'B', age: '19'}
+  columnsToDisplay = ['userName', 'id'];
+  myData: Passenger[] = [
+    {name: 'Antoni', id: '18'},
+    {name: 'Antoni', id: '18'},
+    {name: 'Antoni', id: '18'},
+    {name: 'Antoni', id: '18'},
+    {name: 'Antoni', id: '18'},
+    {name: 'B', id: '19'},
+    {name: 'B', id: '19'},
+    {name: 'B', id: '19'},
+    {name: 'B', id: '19'},
+    {name: 'B', id: '19'}
   ];
   constructor() { }
 
   ngOnInit() {
   }
 
-}
-
-export interface Persona {
-  name: string;
-  age: string;
 }

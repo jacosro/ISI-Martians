@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {MdcButtonModule, MdcTextFieldModule, MdcIconModule, MdcFabModule, MdcTopAppBarModule, MdcDrawerModule,
-        MdcListModule, MdcIconButtonModule, MdcElevationModule, MdcFormFieldModule, MdcSelectModule
-} from '@angular-mdc/web';
+        MdcListModule, MdcIconButtonModule, MdcElevationModule, MdcFormFieldModule, MdcSelectModule} from '@angular-mdc/web';
 import { MatTableModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +32,6 @@ const appRoutes: Routes = [
     ListSpaceshipComponent,
     ListMothershipComponent,
     ListPassengerComponent,
-    CreateSpaceshipComponent
   ],
   imports: [
     BrowserModule,
@@ -44,17 +42,16 @@ const appRoutes: Routes = [
       }
     ),
     MdcButtonModule,
-    MdcFabModule,
-    MdcIconButtonModule,
-    MdcElevationModule,
-    MdcTopAppBarModule,
-    MdcTextFieldModule,
-    MdcFormFieldModule,
-    MdcSelectModule,
     MdcDrawerModule,
-    MdcListModule,
-    MdcIconModule,
+    MdcElevationModule,
     MdcFabModule,
+    MdcFormFieldModule,
+    MdcIconModule,
+    MdcIconButtonModule,
+    MdcListModule,
+    MdcSelectModule,
+    MdcTextFieldModule,
+    MdcTopAppBarModule,
     MatTableModule,
     BrowserAnimationsModule
   ],
