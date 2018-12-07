@@ -1,0 +1,25 @@
+version: 3
+
+services:
+
+  backend:
+    build: 'backend'
+    expose:
+      - 3000
+    depends_on:
+      - database
+    networks:
+      - backend
+      - db
+
+  database:
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+    networks:
+      - db
+
+networks:
+  backend:
+  db:

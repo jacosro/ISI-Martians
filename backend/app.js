@@ -33,9 +33,9 @@ mongoose.connect('mongodb://localhost:27017/martians')
         process.exit(1);
     });
 
-const spaceshipRouter = require('./routes/spaceship');
-const mothershipRouter = require('./routes/mothership');
-const passengerRouter = require('./routes/passenger');
+const spaceshipRouter = require('./routes/spaceships');
+const mothershipRouter = require('./routes/motherships');
+const passengerRouter = require('./routes/passengers');
 
 const apiBaseUrl = '/api';
 
