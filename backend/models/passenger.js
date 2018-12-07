@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 
 
 const schema = new mongoose.Schema({
-    name: String
-    // maxPassengers: Number,
-    // fromMothersip: mongoose.SchemaTypes.String,
-    // toMothership: mongoose.SchemaTypes.String
+    name: String,
+    spaceship: { type: mongoose.Schema.Types.ObjectId, ref: 'Spaceship'}
 });
 
 const Passenger = mongoose.model('Passenger', schema);
