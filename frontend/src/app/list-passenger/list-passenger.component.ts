@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-passenger.component.scss']
 })
 export class ListPassengerComponent implements OnInit {
-  columnsToDisplay = ['userName', 'id'];
+  columnsToDisplay = ['id', 'userName'];
   myData: Passenger[] = [
     {name: 'Antoni', id: '18'},
     {name: 'Antoni', id: '18'},
@@ -17,7 +17,12 @@ export class ListPassengerComponent implements OnInit {
     {name: 'B', id: '19'},
     {name: 'B', id: '19'},
     {name: 'B', id: '19'},
-    {name: 'B', id: '19'}
+    {name: 'B', id: '19'},
+    {name: 'B', id: '19'},
+    {name: 'C', id: '19'},
+    {name: 'C', id: '19'},
+    {name: 'C', id: '19'},
+    {name: 'C', id: '19'}
   ];
   constructor() { }
 

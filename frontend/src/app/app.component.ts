@@ -7,7 +7,7 @@ import {MdcTopAppBar} from '@angular-mdc/web';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'isi-material-app';
+  title = 'SIGEM';
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
   ngOnInit(): void {
     // this.topAppBar.fixed = true;
