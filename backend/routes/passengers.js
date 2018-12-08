@@ -22,7 +22,16 @@ router.post('/', (req, res) => {
 
     // todo: check incoming object ?
 
-    Passenger.create(req.body, (err, passenger) => {
+    const passenger = new Passenger(req.body);
+
+    const error = passenger.validateSync();
+
+    if (error) {
+        errorObject.error = error;
+        return res.status(400).json(errorObject);
+    }
+
+    Passenger.create(passenger, (err, passenger) => {
         if (err) {
             errorObject.error = error;
             return res.status(400).json(errorObject);

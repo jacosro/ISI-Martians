@@ -9,7 +9,9 @@ describe('Spaceships test', () => {
     it('should get all the spaceships', done => {
         test.get(spaceshipsEndpoint)
             .end((err, res) => {
-                res.body.result.should.be.an('array');
+                expect(err).to.be.null;
+
+                expect(res.body.result).to.be.an('array');
                 done();
             })
     });
@@ -23,7 +25,10 @@ describe('Spaceships test', () => {
         test.post(spaceshipsEndpoint)
             .send(newSpaceship)
             .end((err, res) => {
-                res.body.result.name.should.equal(newSpaceship.name);
+                expect(err).to.be.null;
+
+                expect(res.body.result).to.have.property("name");
+                expect(res.body.result.name).to.equal(newSpaceship.name);
                 done();
             })
     })

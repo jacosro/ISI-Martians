@@ -28,4 +28,19 @@ describe('Passengers test', () => {
                 done();
             })
     })
+
+    it('should not create a new passenger', done => {
+        const badPassenger = {
+            name: "whatever",
+            otherBadThing: "yeah"
+        }
+
+        test.post(passengersEndpoint)
+            .send(badPassenger)
+            .end((err, res) => {
+                expect(err).to.not.be.null;
+
+                expect(res).to.have("status").equal(400);
+            })
+    })
 });
