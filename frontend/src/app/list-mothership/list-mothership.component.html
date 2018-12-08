@@ -3,8 +3,7 @@
   <mdc-drawer-content>
     <div style="flex-direction: column; align-items: flex-end; display: flex;">
       <div class="app-form">
-        <mdc-text-field class="app-form-field" #demoformInput formControlName="id" label="Id" outlined dense></mdc-text-field>
-        <mdc-text-field class="app-form-field" #demoformInput formControlName="name" label="Nombre" outlined dense required minlength="3"></mdc-text-field>
+
       </div>
       <button mdc-button primary>Añadir</button>
     </div>
@@ -12,7 +11,7 @@
 </mdc-drawer>
 <div mdcDrawerAppContent>
   <div>
-    <button mdc-fab position='bottomRight' (click)="mydrawer.open = !mydrawer.open">
+    <button mdc-fab position='bottomRight' (click)="openForm()">
       <mdc-icon>add</mdc-icon>
     </button>
     <table mat-table [dataSource]="myData" [mdcElevation]="1" class="app-table">

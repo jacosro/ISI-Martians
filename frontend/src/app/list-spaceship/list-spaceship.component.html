@@ -1,4 +1,4 @@
-<button mdc-fab position='bottomRight' [routerLink]="['/create-spaceship']">
+<button mdc-fab position='bottomRight' (click)="openForm()">
   <mdc-icon>add</mdc-icon>
 </button>
 <table mat-table [dataSource]="myData" [mdcElevation]="1" class="app-table">
