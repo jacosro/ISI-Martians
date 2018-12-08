@@ -20,13 +20,9 @@ const Passenger = require('./models/passenger');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/martians')
-    .then(() =>{
+mongoose.connect('mongodb://database:27017/martians')
+    .then(() => {
         console.log('Connected to database!');
-        Passenger.find((error, res) => {
-            console.log(error);
-            console.log(res);
-        })
     })
     .catch((error) => {
         console.log(error);
