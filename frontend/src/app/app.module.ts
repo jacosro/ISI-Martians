@@ -13,6 +13,7 @@ import {PassengerService} from './services/passengerService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppMaterialModule } from './material.module';
 import { DialogModule } from './dialog-module';
+import {SpaceshipService} from "./services/spaceshipService";
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [PassengerService],
+  providers: [PassengerService, SpaceshipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

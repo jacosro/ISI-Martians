@@ -64,7 +64,7 @@ export class ListPassengerComponent implements OnInit {
 })
 export class PassengerCreateDialog {
   constructor(public dialogRef: MdcDialogRef<PassengerCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar) { }
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService) { }
 
   message = '';
   action = 'OK';
@@ -78,7 +78,7 @@ export class PassengerCreateDialog {
     name: new FormControl('', Validators.required)
   });
 
-  show() {
+  showSnackbar() {
     const snackbarRef = this.snackbar.show(this.message, this.action, {
       align: this.align,
       multiline: this.multiline,
@@ -94,9 +94,17 @@ export class PassengerCreateDialog {
 
   submit(): void {
     if (this.passengerForm.valid) {
+      let passenger = {name: this.passengerForm.value.name, id: ""};
+      this.passengerService.create(passenger).subscribe(
+        value => {
+          console.log(value);
+          this.message = 'Se ha creado correctamente';
+          this.showSnackbar();
+        }, error => {
+          console.log(error);
+        }
+      );
       this.dialogRef.close();
-      this.message = 'Se ha creado correctamente';
-      this.show();
     }
   }
 }

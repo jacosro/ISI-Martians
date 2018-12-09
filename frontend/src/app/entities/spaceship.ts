@@ -1,4 +1,4 @@
-interface Airship {
+interface Spaceship {
   id: string;
   name: string;
   maxnum: string;
