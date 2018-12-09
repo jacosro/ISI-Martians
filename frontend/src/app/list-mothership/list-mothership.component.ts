@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcSnackbar } from '@angular-mdc/web';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MothershipService} from "../services/mothershipService";
 
 export interface DialogData {
   animal: string;
@@ -18,21 +19,13 @@ export class ListMothershipComponent implements OnInit {
 
 
   columnsToDisplay = ['userName', 'id'];
-  myData: Passenger[] = [
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'B', id: '19'},
-    {name: 'B', id: '19'},
-    {name: 'B', id: '19'},
-    {name: 'B', id: '19'},
-    {name: 'B', id: '19'}
+  myData: Mothership[] = [
+
   ];
-  constructor(public dialog: MdcDialog) { }
+  constructor(public dialog: MdcDialog, public mothershipService: MothershipService) { }
 
   ngOnInit() {
+    this.loadData()
   }
 
   openForm() {
@@ -45,6 +38,14 @@ export class ListMothershipComponent implements OnInit {
       console.log(`dialog: ${result}`);
     });
   }
+
+  private loadData() {
+    this.mothershipService.getAll().subscribe(motherships => {
+      this.myData = motherships;
+    }, error => {
+      console.log(error);
+    });
+  }
 }
 
 @Component({
@@ -52,7 +53,7 @@ export class ListMothershipComponent implements OnInit {
 })
 export class MothershipCreateDialog {
   constructor(public dialogRef: MdcDialogRef<MothershipCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar) { }
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public mothershipService: MothershipService) { }
 
   message = '';
   action = 'OK';
@@ -66,7 +67,7 @@ export class MothershipCreateDialog {
     name: new FormControl('', Validators.required)
   });
 
-  show() {
+  showSnackbar() {
     const snackbarRef = this.snackbar.show(this.message, this.action, {
       align: this.align,
       multiline: this.multiline,
@@ -82,9 +83,17 @@ export class MothershipCreateDialog {
 
   submit(): void {
     if (this.mothershipForm.valid) {
+      let mothership = {name: this.mothershipForm.value.name, id: ""};
+      this.mothershipService.create(mothership).subscribe(
+        value => {
+          console.log(value);
+          this.message = 'Se ha creado correctamente';
+          this.showSnackbar();
+        }, error => {
+          console.log(error);
+        }
+      );
       this.dialogRef.close();
-      this.message = 'Se ha creado correctamente';
-      this.show();
     }
   }
 }
