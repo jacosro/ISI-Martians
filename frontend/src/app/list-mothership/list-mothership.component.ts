@@ -18,7 +18,7 @@ export class ListMothershipComponent implements OnInit {
   clickOutsideToClose = true;
 
 
-  columnsToDisplay = ['userName', 'id'];
+  columnsToDisplay = ['id', 'userName'];
   myData: Mothership[] = [
 
   ];
@@ -59,7 +59,7 @@ export class MothershipCreateDialog {
   action = 'OK';
   multiline = false;
   dismissOnAction = true;
-  align = 'start';
+  align = 'center';
   focusAction = false;
   actionOnBottom = false;
 

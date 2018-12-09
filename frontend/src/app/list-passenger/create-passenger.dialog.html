@@ -5,6 +5,10 @@
       <form [formGroup]="passengerForm" (ngSubmit)="submit()" autocomplete="off">
         <mdc-dialog-content>
           <mdc-form-field>
+            <mdc-text-field formControlName="id" label="Id" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+          </mdc-form-field>
+          <mdc-form-field>
             <mdc-text-field formControlName="name" label="Nombre" dense outlined required></mdc-text-field>
             <p mdcTextFieldHelperText persistent validation>*Nombre obligatorio</p>
           </mdc-form-field>

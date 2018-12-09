@@ -1,8 +1,8 @@
 interface Spaceship {
   id: string;
   name: string;
-  maxnum: string;
-  origin: Mothership;
-  destination: Mothership;
-  state: boolean;
+  nummax: string;
+  //origin: Mothership;
+  //destination: Mothership;
+  //state: boolean;
 }

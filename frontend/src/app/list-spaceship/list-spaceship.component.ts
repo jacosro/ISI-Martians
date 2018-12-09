@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MDC_DIALOG_DATA, MdcDialog, MdcDialogRef, MdcSnackbar} from '@angular-mdc/web';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DialogData} from '../list-mothership/list-mothership.component';
+import {SpaceshipService} from "../services/spaceshipService";
 
 @Component({
   selector: 'app-list-spaceship',
@@ -12,17 +13,23 @@ export class ListSpaceshipComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
 
-  columnsToDisplay = ['userName', 'id'];
-  myData: Passenger[] = [
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
-    {name: 'Antoni', id: '18'},
+  columnsToDisplay = ['id', 'userName'];
+  myData: Spaceship[] = [
+
   ];
-  constructor(public dialog: MdcDialog) { }
+  constructor(public dialog: MdcDialog, private spaceshipService: SpaceshipService) { }
 
   ngOnInit() {
+    this.loadSpaceships()
+  }
+
+  loadSpaceships() {
+    this.spaceshipService.getAll()
+      .subscribe(spaceships => {
+        this.myData = spaceships;
+      }, error => {
+        console.log(error);
+      });
   }
 
   openForm() {
@@ -44,13 +51,13 @@ export class ListSpaceshipComponent implements OnInit {
 })
 export class SpaceshipCreateDialog {
   constructor(public dialogRef: MdcDialogRef<SpaceshipCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar) { }
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService) { }
 
   message = '';
   action = 'OK';
   multiline = false;
   dismissOnAction = true;
-  align = 'start';
+  align = 'center';
   focusAction = false;
   actionOnBottom = false;
 
@@ -60,7 +67,7 @@ export class SpaceshipCreateDialog {
     nummax: new FormControl('', Validators.required),
   });
 
-  show() {
+  showSnackbar() {
     const snackbarRef = this.snackbar.show(this.message, this.action, {
       align: this.align,
       multiline: this.multiline,
@@ -76,9 +83,17 @@ export class SpaceshipCreateDialog {
 
   submit(): void {
     if (this.spaceshipForm.valid) {
+      let passenger = {name: this.spaceshipForm.value.name, id: ""};
+      this.spaceshipService.create({name: this.spaceshipForm.value.name, id: "", nummax: this.spaceshipForm.value.nummax}).subscribe(
+        value => {
+          console.log(value);
+          this.message = 'Se ha creado correctamente';
+          this.showSnackbar();
+        }, error => {
+          console.log(error);
+        }
+      );
       this.dialogRef.close();
-      this.message = 'Se ha creado correctamente';
-      this.show();
     }
   }
 }

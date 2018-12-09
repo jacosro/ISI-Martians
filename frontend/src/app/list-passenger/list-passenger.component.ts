@@ -16,20 +16,6 @@ export class ListPassengerComponent implements OnInit {
   columnsToDisplay = ['id', 'userName'];
   myData: Passenger[] = [
     // {name: 'Antoni', id: '18'},
-    // {name: 'Antoni', id: '18'},
-    // {name: 'Antoni', id: '18'},
-    // {name: 'Antoni', id: '18'},
-    // {name: 'Antoni', id: '18'},
-    // {name: 'B', id: '19'},
-    // {name: 'B', id: '19'},
-    // {name: 'B', id: '19'},
-    // {name: 'B', id: '19'},
-    // {name: 'B', id: '19'},
-    // {name: 'B', id: '19'},
-    // {name: 'C', id: '19'},
-    // {name: 'C', id: '19'},
-    // {name: 'C', id: '19'},
-    // {name: 'C', id: '19'}
   ];
   constructor(private passengerService: PassengerService, public dialog: MdcDialog) { }
 
@@ -37,7 +23,7 @@ export class ListPassengerComponent implements OnInit {
     this.loadPassengers();
   }
 
-  loadPassengers() {
+  public loadPassengers() {
     this.passengerService.getAll()
       .subscribe(passengers => {
         this.myData = passengers;
@@ -70,11 +56,12 @@ export class PassengerCreateDialog {
   action = 'OK';
   multiline = false;
   dismissOnAction = true;
-  align = 'start';
+  align = 'center';
   focusAction = false;
   actionOnBottom = false;
 
   passengerForm = new FormGroup({
+    id: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required)
   });
 
@@ -94,7 +81,7 @@ export class PassengerCreateDialog {
 
   submit(): void {
     if (this.passengerForm.valid) {
-      let passenger = {name: this.passengerForm.value.name, id: ""};
+      let passenger = {name: this.passengerForm.value.name, id: this.passengerForm.value.id};
       this.passengerService.create(passenger).subscribe(
         value => {
           console.log(value);
