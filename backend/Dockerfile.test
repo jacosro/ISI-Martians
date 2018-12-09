@@ -4,6 +4,8 @@ WORKDIR /app/backend
 
 COPY . .
 
+ENV NODE_ENV dev
+
 RUN npm install
 
-CMD ["npm", "start"]
+CMD ["npm", "test"]

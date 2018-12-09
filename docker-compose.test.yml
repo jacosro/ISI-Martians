@@ -2,7 +2,9 @@ version: "3"
 
 services:
   backend:
-    build: 'backend'
+    build: 
+      context: 'backend'
+      dockerfile: 'Dockerfile.test'
     ports:
       - "3000:3000"
     depends_on:
@@ -13,7 +15,6 @@ services:
 
   database:
     image: mongo
-    restart: always
     expose:
       - 27017
     networks:

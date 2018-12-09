@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const baseSchema = require('./abstract-schema');
 
-
-const schema = new mongoose.Schema({
+const schema = baseSchema({
     name: String,
     maxPassengers: Number,
     passengers: Number,

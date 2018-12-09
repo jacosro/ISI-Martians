@@ -13,6 +13,8 @@ import { ListMothershipComponent } from './list-mothership/list-mothership.compo
 import { ListPassengerComponent } from './list-passenger/list-passenger.component';
 import {Routes, RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
+import {PassengerService} from './services/passengerService';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -53,9 +55,10 @@ const appRoutes: Routes = [
     MdcTextFieldModule,
     MdcTopAppBarModule,
     MatTableModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [PassengerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

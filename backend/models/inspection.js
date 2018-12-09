@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const baseSchema = require('./abstract-schema');
 
-
-const schema = new mongoose.Schema({
+const schema = baseSchema({
     inspector: String,
     spaceship: { type: mongoose.Schema.Types.ObjectId, ref: 'Spaceship' },
     date: Date,
