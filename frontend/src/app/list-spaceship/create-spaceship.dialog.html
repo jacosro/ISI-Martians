@@ -1,0 +1,24 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Crear aeronave</mdc-dialog-title>
+      <form [formGroup]="spaceshipForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content>
+          <mdc-form-field>
+            <mdc-text-field formControlName="name" label="Nombre" outlined dense required [helperText]="nameHelper"></mdc-text-field>
+            <p #nameHelper="mdcHelperText" mdcTextFieldHelperText validation>*Nombre obligatorio</p>
+          </mdc-form-field>
+          <mdc-form-field>
+            <mdc-text-field formControlName="nummax" type="number" label="Número máximo" outlined dense required [helperText]="nummaxHelper"></mdc-text-field>
+            <p #nummaxHelper="mdcHelperText" mdcTextFieldHelperText validation>*Número máximo obligatorio</p>
+          </mdc-form-field>
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Crear</button>
+          <!--<button mdcDialogButton type="submit" [disabled]="!spaceshipForm.valid" primary>Crear</button>-->
+        </mdc-dialog-actions>
+      </form>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

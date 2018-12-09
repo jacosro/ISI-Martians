@@ -28,7 +28,7 @@ $isi-material-app-theme: mat-light-theme($isi-material-app-primary, $isi-materia
 
 /* You can add global styles to this file, and also import other style files */
 $mdc-theme-primary: #145BB8; // primary color example
-$mdc-theme-secondary: #000; // secondary color example
+$mdc-theme-secondary: #5c87eb; // secondary color example
 $mdc-typography-font-family: "Montserrat";
 @import "~@angular-mdc/theme/material";
 
@@ -39,13 +39,12 @@ html, body {
 }
 
 .app-form {
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-  width: 240px;
-  padding: 10%;
-  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  padding: 1rem;
 }
 
 .app-form-field{
@@ -63,8 +62,22 @@ html, body {
 .drawer-app-content {
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100vh;
+}
+
+.rounded-corners {
+  border-radius: 8px;
+}
+
+.app-table {
+  margin-bottom: 32px;
+  width: 75vw;
+}
+
+.app-drawer-form {
+  @include mdc-drawer-border-color(white);
+  z-index: 0;
+  position: fixed;
 }
 
 
