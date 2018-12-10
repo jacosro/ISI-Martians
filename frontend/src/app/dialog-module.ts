@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {BrowserModule} from "@angular/platform-browser";
 import { AppMaterialModule } from './material.module';
 
 import {
@@ -20,6 +20,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     AppMaterialModule,
+    BrowserModule
   ],
   declarations: [
     MothershipCreateDialog,

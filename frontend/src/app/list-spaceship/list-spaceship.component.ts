@@ -1,8 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, NgModule, OnInit} from '@angular/core';
 import {MDC_DIALOG_DATA, MdcDialog, MdcDialogRef, MdcSnackbar} from '@angular-mdc/web';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 import {DialogData} from '../list-mothership/list-mothership.component';
 import {SpaceshipService} from "../services/spaceshipService";
+import {MothershipService} from "../services/mothershipService";
 
 @Component({
   selector: 'app-list-spaceship',
@@ -49,9 +50,9 @@ export class ListSpaceshipComponent implements OnInit {
 @Component({
   templateUrl: './create-spaceship.dialog.html'
 })
-export class SpaceshipCreateDialog {
+export class SpaceshipCreateDialog implements OnInit {
   constructor(public dialogRef: MdcDialogRef<SpaceshipCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService) { }
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService, public mothershipService: MothershipService) { }
 
   message = '';
   action = 'OK';
@@ -60,11 +61,34 @@ export class SpaceshipCreateDialog {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
+  motherships: Mothership[] = [
+
+  ];
+
+  foods = [
+    { value: '', disabled: false },
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
+    { value: 'fruit-3', viewValue: 'Fruit' },
+  ];
+
+  loadMotherships() {
+    this.mothershipService.getAll()
+      .subscribe(motherships => {
+        this.motherships = motherships;
+      }, error => {
+        console.log(error);
+      });
+  }
 
   spaceshipForm = new FormGroup({
+    id: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     // name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     maxPassengers: new FormControl('', Validators.required),
+    origin: new FormControl('', Validators.required),
+    destination: new FormControl('', Validators.required)
   });
 
   showSnackbar() {
@@ -95,5 +119,9 @@ export class SpaceshipCreateDialog {
       );
       this.dialogRef.close();
     }
+  }
+
+  ngOnInit(): void {
+    this.loadMotherships()
   }
 }

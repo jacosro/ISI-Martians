@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListSpaceshipComponent } from './list-spaceship/list-spaceship.component';
+import {ListSpaceshipComponent, SpaceshipCreateDialog} from './list-spaceship/list-spaceship.component';
 import { ListMothershipComponent } from './list-mothership/list-mothership.component';
 import { ListPassengerComponent } from './list-passenger/list-passenger.component';
 import {Routes, RouterModule} from '@angular/router';
@@ -15,6 +15,7 @@ import { DialogModule } from './dialog-module';
 import { SpaceshipService } from "./services/spaceshipService";
 import { MothershipService } from "./services/mothershipService";
 import { PassengerService } from './services/passengerService';
+import {CommonModule} from "@angular/common";
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     ListPassengerComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

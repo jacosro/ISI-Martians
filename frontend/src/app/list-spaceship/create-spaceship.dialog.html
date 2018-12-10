@@ -18,17 +18,21 @@
             </mdc-form-field>
             <div style="display: flex;">
               <mdc-form-field>
-                <mdc-select placeholder="Origen" outlined>
+                <mdc-select formControlName="origin" placeholder="Origen" outlined>
                   <mdc-icon mdcSelectIcon>flight_takeoff</mdc-icon>
-                  <option value="aeronave1">Aeronave1</option>
-                  <option value="aeronave2">Aeronave2</option>
+                  <option></option>
+                  <option *ngFor="let mothership of motherships" [value]="mothership.id">
+                    {{mothership.name}}
+                  </option>
                 </mdc-select>
               </mdc-form-field>
               <mdc-form-field>
-                <mdc-select placeholder="Destino" outlined>
+                <mdc-select formControlName="name" placeholder="Destino" outlined>
                   <mdc-icon mdcSelectIcon>flight_land</mdc-icon>
-                  <option value="aeronave1">Aeronave1</option>
-                  <option value="aeronave2">Aeronave2</option>
+                  <option></option>
+                  <option *ngFor="let mothership of motherships" [value]="mothership.name">
+                    {{mothership.name}}
+                  </option>
                 </mdc-select>
               </mdc-form-field>
             </div>

@@ -15,7 +15,14 @@ import {
   MdcElevationModule,
   MdcSelectModule,
   MdcSnackbarModule,
-  MdcFormFieldModule
+  MdcFormFieldModule,
+  MdcCardModule,
+  MdcLinearProgressModule,
+  MdcMenuModule,
+  MdcRippleModule,
+  MdcSliderModule,
+  MdcSwitchModule,
+  MdcTypographyModule
 } from '@angular-mdc/web';
 
 @NgModule({
@@ -34,7 +41,14 @@ import {
     MdcElevationModule,
     MdcSelectModule,
     MdcSnackbarModule,
-    MdcFormFieldModule
+    MdcFormFieldModule,
+    MdcCardModule,
+    MdcLinearProgressModule,
+    MdcMenuModule,
+    MdcRippleModule,
+    MdcSliderModule,
+    MdcSwitchModule,
+    MdcTypographyModule
   ]
 })
 export class AppMaterialModule { }
