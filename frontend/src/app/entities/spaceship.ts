@@ -1,7 +1,7 @@
 interface Spaceship {
   id: string;
   name: string;
-  nummax: string;
+  maxPassengers: Number;
   //origin: Mothership;
   //destination: Mothership;
   //state: boolean;

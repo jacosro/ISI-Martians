@@ -64,6 +64,7 @@ export class MothershipCreateDialog {
   actionOnBottom = false;
 
   mothershipForm = new FormGroup({
+    id: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required)
   });
 
@@ -83,7 +84,7 @@ export class MothershipCreateDialog {
 
   submit(): void {
     if (this.mothershipForm.valid) {
-      let mothership = {name: this.mothershipForm.value.name, id: ""};
+      let mothership = {id: this.mothershipForm.value.id, name: this.mothershipForm.value.name};
       this.mothershipService.create(mothership).subscribe(
         value => {
           console.log(value);

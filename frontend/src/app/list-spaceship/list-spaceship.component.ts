@@ -13,7 +13,7 @@ export class ListSpaceshipComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
 
-  columnsToDisplay = ['id', 'userName'];
+  columnsToDisplay = ['id', 'name', 'maxPassengers'];
   myData: Spaceship[] = [
 
   ];
@@ -64,7 +64,7 @@ export class SpaceshipCreateDialog {
   spaceshipForm = new FormGroup({
     name: new FormControl('', Validators.required),
     // name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    nummax: new FormControl('', Validators.required),
+    maxPassengers: new FormControl('', Validators.required),
   });
 
   showSnackbar() {
@@ -83,8 +83,8 @@ export class SpaceshipCreateDialog {
 
   submit(): void {
     if (this.spaceshipForm.valid) {
-      let passenger = {name: this.spaceshipForm.value.name, id: ""};
-      this.spaceshipService.create({name: this.spaceshipForm.value.name, id: "", nummax: this.spaceshipForm.value.nummax}).subscribe(
+      let spaceship = {name: this.spaceshipForm.value.name, id: "", maxPassengers: this.spaceshipForm.value.maxPassengers};
+      this.spaceshipService.create(spaceship).subscribe(
         value => {
           console.log(value);
           this.message = 'Se ha creado correctamente';
