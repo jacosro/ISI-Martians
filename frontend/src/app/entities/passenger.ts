@@ -1,4 +1,4 @@
 interface Passenger {
-  id: string;
+  id: Number;
   name: string;
 }

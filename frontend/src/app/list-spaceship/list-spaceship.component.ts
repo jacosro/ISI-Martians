@@ -14,7 +14,7 @@ export class ListSpaceshipComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
 
-  columnsToDisplay = ['id', 'name', 'maxPassengers'];
+  columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id'];
   myData: Spaceship[] = [
 
   ];
@@ -65,14 +65,6 @@ export class SpaceshipCreateDialog implements OnInit {
 
   ];
 
-  foods = [
-    { value: '', disabled: false },
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos is disabled', disabled: true },
-    { value: 'fruit-3', viewValue: 'Fruit' },
-  ];
-
   loadMotherships() {
     this.mothershipService.getAll()
       .subscribe(motherships => {
@@ -87,8 +79,8 @@ export class SpaceshipCreateDialog implements OnInit {
     name: new FormControl('', Validators.required),
     // name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     maxPassengers: new FormControl('', Validators.required),
-    origin: new FormControl('', Validators.required),
-    destination: new FormControl('', Validators.required)
+    fromMothership: new FormControl('', Validators.required),
+    toMothership: new FormControl('', Validators.required)
   });
 
   showSnackbar() {
@@ -107,7 +99,10 @@ export class SpaceshipCreateDialog implements OnInit {
 
   submit(): void {
     if (this.spaceshipForm.valid) {
-      let spaceship = {name: this.spaceshipForm.value.name, id: "", maxPassengers: this.spaceshipForm.value.maxPassengers};
+      let spaceship = {name: this.spaceshipForm.value.name, id: this.spaceshipForm.value.id, maxPassengers: this.spaceshipForm.value.maxPassengers,
+        fromMothership_id: this.spaceshipForm.value.fromMothership,
+        toMothership_id: this.spaceshipForm.value.toMothership
+      };
       this.spaceshipService.create(spaceship).subscribe(
         value => {
           console.log(value);

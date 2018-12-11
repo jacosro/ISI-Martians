@@ -1,4 +1,4 @@
 interface Mothership {
-  id: string;
-
+  id: Number;
+  name: String;
 }
