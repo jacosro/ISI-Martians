@@ -1,23 +1,23 @@
 const router = require('express').Router();
 
-const Mothership = require('../entities/models').Mothership;
+const Inspection = require('../entities/models').Inspection;
 const responseWithQuery = require('./baseRouting').responseWithQuery;
 
 router.get('/', (req, res) => {
-    Mothership.find(responseWithQuery(res));
+    Inspection.find(responseWithQuery(res));
 });
 
 router.get('/:id', (req, res) => {
     const reqId = req.params.id;
 
-    Mothership.findOne({ id: reqId }, responseWithQuery(res));
+    Inspection.findOne({ id: reqId }, responseWithQuery(res));
 });
 
 router.post('/', (req, res) => {
 
     // todo: check incoming object ?
 
-    Mothership.create(req.body, responseWithQuery(res));
+    Inspection.create(req.body, responseWithQuery(res));
 });
 
 

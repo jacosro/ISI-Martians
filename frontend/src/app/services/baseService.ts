@@ -1,6 +1,7 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class BaseService {
@@ -24,16 +25,12 @@ export class BaseService {
 
 
   protected serverGet<T>(endpoint: string): Observable<T> {
-    return new Observable<T>(observer => {
-      this.http.get<ServerResponse<T>>(endpoint, this.httpOptions)
-        .subscribe(serverRes => {
-          if (serverRes.ok) {
-            return observer.next(serverRes.result);
-          }
-
-          return observer.error(serverRes.error);
-        }, observer.error);
-    });
+    return this.http.get<ServerResponse<T>>(endpoint, this.httpOptions)
+      .pipe(
+        map(serverRes => {
+          return serverRes.result;
+        })
+      );
   }
 
   protected serverPost<T>(endpoint: string, data: any): Observable<T> {

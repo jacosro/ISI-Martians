@@ -25,13 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // end of declarations
 
-const Passenger = require('./models/passenger');
-
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://database:27017/martians')
     .then(() => {
-        console.log('Connected to database!');
+        console.log('Connected to database!')
     })
     .catch((error) => {
         console.log(error);
@@ -41,13 +39,18 @@ mongoose.connect('mongodb://database:27017/martians')
 const spaceshipRouter = require('./routes/spaceships');
 const mothershipRouter = require('./routes/motherships');
 const passengerRouter = require('./routes/passengers');
+const inspectionRouter = require('./routes/inspections');
 
 const apiBaseUrl = '/api';
 
 app.use(`${apiBaseUrl}/spaceships`, spaceshipRouter);
 app.use(`${apiBaseUrl}/motherships`, mothershipRouter);
 app.use(`${apiBaseUrl}/passengers`, passengerRouter);
+app.use(`${apiBaseUrl}/inspections`, inspectionRouter);
 
+app.use('**', (req, res, next) => {
+    res.sendStatus(404);
+});
 
 app.use((req, res, next) => {
     next(createError(404))

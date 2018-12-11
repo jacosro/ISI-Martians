@@ -1,21 +1,19 @@
 const router = require('express').Router();
 
-const Passenger = require('../models/passenger');
-const Spaceship = require('../models/spaceship');
+const Passenger = require('../entities/models').Passenger;
 const errorObject = require('./baseRouting').errorObject;
 const okObject = require('./baseRouting').okObject;
+const responseWithQuery = require('./baseRouting').responseWithQuery;
 
 
 router.get('/', (req, res) => {
-    Passenger.find((error, passengers) => {
-        if (error) {
-            errorObject.error = error;
-            return res.status(400).json(errorObject);
-        }
+    Passenger.find(responseWithQuery(res));
+});
 
-        okObject.result = passengers;
-        return res.json(okObject);
-    })
+router.get('/:id', (req, res) => {
+    const reqId = req.params.id;
+
+    Passenger.findOne({ id: reqId }, responseWithQuery(res));
 });
 
 router.post('/', (req, res) => {
@@ -31,15 +29,7 @@ router.post('/', (req, res) => {
         return res.status(400).json(errorObject);
     }
 
-    Passenger.create(passenger, (err, passenger) => {
-        if (err) {
-            errorObject.error = error;
-            return res.status(400).json(errorObject);
-        }
-
-        okObject.result = passenger;
-        return res.json(okObject);
-    })
+    Passenger.create(passenger, responseWithQuery(res));
 });
 
 router.post('/board', (req, res) => {

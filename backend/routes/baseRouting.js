@@ -9,4 +9,14 @@ const okObject = {
     result: null
 };
 
-module.exports = { errorObject: errorObject, okObject: okObject };
+const responseWithQuery = (res) => (error, result) => {
+    if (error) {
+        errorObject.error = error;
+        return res.status(400).json(errorObject);
+    }
+
+    okObject.result = result;
+    return res.json(okObject);
+};
+
+module.exports = { errorObject: errorObject, okObject: okObject, responseWithQuery: responseWithQuery };
