@@ -3,9 +3,9 @@
     <mdc-dialog-surface>
       <mdc-dialog-title>Crear nave nodriza</mdc-dialog-title>
       <form [formGroup]="mothershipForm" (ngSubmit)="submit()" autocomplete="off">
-        <mdc-dialog-content>
+        <mdc-dialog-content style="overflow: inherit;">
           <mdc-form-field>
-            <mdc-text-field formControlName="id" label="Id" dense outlined required></mdc-text-field>
+            <mdc-text-field formControlName="id" type="number" min=0 label="Id" dense outlined required></mdc-text-field>
             <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
           </mdc-form-field>
           <mdc-form-field>
