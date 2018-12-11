@@ -16,9 +16,10 @@ import { SpaceshipService } from "./services/spaceshipService";
 import { MothershipService } from "./services/mothershipService";
 import { PassengerService } from './services/passengerService';
 import {CommonModule} from "@angular/common";
+import { MainViewComponent } from './main-view/main-view.component';
 
 const appRoutes: Routes = [
-  { path: '', component: AppComponent },
+  { path: 'main-view', component: MainViewComponent },
   { path: 'list-passenger', component: ListPassengerComponent },
   { path: 'list-mothership', component: ListMothershipComponent },
   { path: 'list-spaceship', component: ListSpaceshipComponent }
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     ListSpaceshipComponent,
     ListMothershipComponent,
     ListPassengerComponent,
+    MainViewComponent,
   ],
   imports: [
     CommonModule,
