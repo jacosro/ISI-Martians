@@ -3,11 +3,20 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+// Cors
+const cors = require('cors');
+
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200
+};
+
 // const indexRouter = require('./routes/index');
 // const usersRouter = require('./routes/users');
 
 const app = express();
 
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,33 +25,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // end of declarations
 
-const Passenger = require('./models/passenger');
-
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/martians')
-    .then(() =>{
-        console.log('Connected to database!');
-        Passenger.find((error, res) => {
-            console.log(error);
-            console.log(res);
-        })
+mongoose.connect('mongodb://database:27017/martians')
+    .then(() => {
+        console.log('Connected to database!')
     })
     .catch((error) => {
         console.log(error);
         process.exit(1);
     });
 
-const spaceshipRouter = require('./routes/spaceship');
-const mothershipRouter = require('./routes/mothership');
-const passengerRouter = require('./routes/passenger');
+const spaceshipRouter = require('./routes/spaceships');
+const mothershipRouter = require('./routes/motherships');
+const passengerRouter = require('./routes/passengers');
+const inspectionRouter = require('./routes/inspections');
 
 const apiBaseUrl = '/api';
 
 app.use(`${apiBaseUrl}/spaceships`, spaceshipRouter);
 app.use(`${apiBaseUrl}/motherships`, mothershipRouter);
 app.use(`${apiBaseUrl}/passengers`, passengerRouter);
+app.use(`${apiBaseUrl}/inspections`, inspectionRouter);
 
+app.use('**', (req, res, next) => {
+    res.sendStatus(404);
+});
 
 app.use((req, res, next) => {
     next(createError(404))

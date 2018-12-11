@@ -1,0 +1,27 @@
+<button mdc-fab position='bottomRight' (click)="openForm()">
+  <mdc-icon>add</mdc-icon>
+</button>
+<table mat-table [dataSource]="myData" [mdcElevation]="1" class="app-table">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let spaceship"> {{spaceship.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let spaceship"> {{spaceship.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="maxPassengers">
+    <th mat-header-cell *matHeaderCellDef>Num máx.</th>
+    <td mat-cell *matCellDef="let spaceship"> {{spaceship.maxPassengers}} </td>
+  </ng-container>
+  <ng-container matColumnDef="fromMothership_id">
+    <th mat-header-cell *matHeaderCellDef>Nave nodriza origen</th>
+    <td mat-cell *matCellDef="let spaceship"> {{spaceship.fromMothership_id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="toMothership_id">
+    <th mat-header-cell *matHeaderCellDef>Nave nodriza destino</th>
+    <td mat-cell *matCellDef="let spaceship"> {{spaceship.toMothership_id}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myData; columns: columnsToDisplay"></tr>
+</table>

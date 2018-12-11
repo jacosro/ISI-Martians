@@ -1,19 +1,35 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MdcTopAppBar} from '@angular-mdc/web';
+import { MdcTopAppBar } from '@angular-mdc/web';
+import { NavigationStart, Router} from '@angular/router';
+import {Observable} from "rxjs";
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'isi-material-app';
+  title = 'SIGEM';
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
-  ngOnInit(): void {
-    // this.topAppBar.fixed = true;
-    // this.topAppBar.prominent = true;
-    // this.topAppBar.dense = true;
+
+  navStart: Observable<NavigationStart>;
+
+  constructor(private router: Router) {
+    this.navStart = router.events.pipe(
+      filter(evt => evt instanceof NavigationStart)
+    ) as Observable<NavigationStart>;
   }
 
+  ngOnInit() {
+    this.navStart.subscribe(evt => {
+      switch (evt.url) {
+        case '/list-spaceship' : this.title = 'Aeronaves'; break;
+        case '/list-mothership' : this.title = 'Naves nodrizas'; break;
+        case '/list-passenger' : this.title = 'Pasajeros'; break;
+      }
+    });
+  }
 }
+
+
 

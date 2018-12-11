@@ -1,6 +1,34 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$isi-material-app-primary: mat-palette($mat-indigo);
+$isi-material-app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$isi-material-app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$isi-material-app-theme: mat-light-theme($isi-material-app-primary, $isi-material-app-accent, $isi-material-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($isi-material-app-theme);
+
 /* You can add global styles to this file, and also import other style files */
-$mdc-theme-primary: #0072ff; // primary color example
-$mdc-theme-secondary: #8e500c; // secondary color example
+$mdc-theme-primary: #145BB8; // primary color example
+$mdc-theme-secondary: #5c87eb; // secondary color example
 $mdc-typography-font-family: "Montserrat";
 @import "~@angular-mdc/theme/material";
 
@@ -10,3 +38,55 @@ html, body {
   margin: 0;
 }
 
+.app-form {
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: .75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1.5rem;
+  padding: 1rem;
+}
+
+.app-form-field{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.app-form-button {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.drawer-app-content {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.rounded-corners {
+  border-radius: 8px;
+}
+
+.app-table {
+  margin-bottom: 32px;
+  width: 75vw;
+  font-family: Montserrat, Roboto, serif;
+  font-weight: 300;
+}
+
+.app-drawer-form {
+  @include mdc-drawer-border-color(white);
+  z-index: 0;
+  position: fixed;
+}
+
+mdc-dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

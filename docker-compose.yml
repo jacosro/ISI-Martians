@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  backend:
+    build: 'backend'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    networks:
+      - backend
+      - db
+
+  database:
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+    networks:
+      - db
+  mongosetup:
+    image: mongo
+    entrypoint: ["mongorestore", "--host", "database", "/dump"]
+    volumes:
+      - ./database/dump:/dump
+    depends_on: 
+      - database
+    logging:
+      driver: "none"
+    networks:
+      - db
+
+
+networks:
+  backend:
+  db:
