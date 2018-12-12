@@ -62,26 +62,15 @@ router.post('/:id/board', (req, res) => {
 });
 
 router.post('/:id/land', (req, res) => {
-    Passenger.findOne({ id: req.params.id }, 'passenger_id spaceship_id', (error, passenger) => {
-        if (error) {
+    Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: null }})
+        .then(() => {
+            okObject.result = null;
+            return res.json(okObject);
+        })
+        .catch(error => {
             errorObject.error = error.toString();
             return res.status(500).json(errorObject);
-        }
-
-        Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: null }})
-            .then(() => Spaceship.findOneAndUpdate({ id: passenger.spaceship_id }, { $inc: { maxPassengers: -1 }}))
-            .then(() => {
-                okObject.result = null;
-                return res.json(okObject);
-            })
-            .catch(error => {
-                errorObject.error = error.toString();
-                return res.status(500).json(errorObject);
-            });
-    })
-
-    // errorObject.error = "Not implemented";
-    // return res.status(400).json(errorObject);
+        });
 });
 
 module.exports = router;
