@@ -3,6 +3,7 @@ import { PassengerService } from '../services/passengerService';
 import {MDC_DIALOG_DATA, MdcDialog, MdcDialogRef, MdcSnackbar} from '@angular-mdc/web';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { DialogData } from '../list-mothership/list-mothership.component';
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-list-passenger',
@@ -13,10 +14,11 @@ export class ListPassengerComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
 
-  columnsToDisplay = ['id', 'userName'];
+  columnsToDisplay = ['id', 'userName', 'assign'];
   myData: Passenger[] = [
     // {name: 'Antoni', id: '18'},
   ];
+  private dataSource: MatTableDataSource<Passenger>;
   constructor(private passengerService: PassengerService, public dialog: MdcDialog) { }
 
   ngOnInit() {
@@ -27,6 +29,7 @@ export class ListPassengerComponent implements OnInit {
     this.passengerService.getAll()
       .subscribe(passengers => {
         this.myData = passengers;
+        this.dataSource = new MatTableDataSource(this.myData)
       }, error => {
         console.log(error);
       });
@@ -43,6 +46,13 @@ export class ListPassengerComponent implements OnInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  assign(id: string){
+    console.log(id);
+  }
 }
 
 @Component({

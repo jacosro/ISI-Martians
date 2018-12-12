@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcSnackbar } from '@angular-mdc/web';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MothershipService} from "../services/mothershipService";
+import {MatTableDataSource} from "@angular/material";
 
 export interface DialogData {
   animal: string;
@@ -22,6 +23,7 @@ export class ListMothershipComponent implements OnInit {
   myData: Mothership[] = [
 
   ];
+  private dataSource: MatTableDataSource<Mothership>;
   constructor(public dialog: MdcDialog, public mothershipService: MothershipService) { }
 
   ngOnInit() {
@@ -42,9 +44,14 @@ export class ListMothershipComponent implements OnInit {
   private loadData() {
     this.mothershipService.getAll().subscribe(motherships => {
       this.myData = motherships;
+      this.dataSource = new MatTableDataSource(this.myData)
     }, error => {
       console.log(error);
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 

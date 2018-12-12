@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 import {DialogData} from '../list-mothership/list-mothership.component';
 import {SpaceshipService} from "../services/spaceshipService";
 import {MothershipService} from "../services/mothershipService";
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-list-spaceship',
@@ -18,6 +19,8 @@ export class ListSpaceshipComponent implements OnInit {
   myData: Spaceship[] = [
 
   ];
+  private dataSource: MatTableDataSource<Spaceship>;
+  
   constructor(public dialog: MdcDialog, private spaceshipService: SpaceshipService) { }
 
   ngOnInit() {
@@ -28,9 +31,14 @@ export class ListSpaceshipComponent implements OnInit {
     this.spaceshipService.getAll()
       .subscribe(spaceships => {
         this.myData = spaceships;
+        this.dataSource = new MatTableDataSource(this.myData)
       }, error => {
         console.log(error);
       });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openForm() {

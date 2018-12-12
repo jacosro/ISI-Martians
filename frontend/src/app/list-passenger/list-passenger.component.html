@@ -1,15 +1,25 @@
 <button mdc-fab position='bottomRight' (click)="openForm()">
   <mdc-icon>add</mdc-icon>
 </button>
-<table mat-table [dataSource]="myData" [mdcElevation]="1" class="app-table">
+<mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" ></mdc-text-field>
+<table mat-table [dataSource]="dataSource" [mdcElevation]="1" class="app-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>Id</th>
-    <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    <td mat-cell *matCellDef="let passenger"> {{passenger.id}} </td>
   </ng-container>
   <ng-container matColumnDef="userName">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    <td mat-cell *matCellDef="let passenger"> {{passenger.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="assign" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let passenger">
+      <button mdcIconButton (click)="assign(passenger.id)" #demoiconbutton3 [on]="true">
+        <mdc-icon mdcIconOn class="mdc-icon-toggle">flight_takeoff</mdc-icon>
+        <mdc-icon>flight_land</mdc-icon>
+      </button>
+    </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myData; columns: columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>
 </table>

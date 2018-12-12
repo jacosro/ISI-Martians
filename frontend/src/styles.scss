@@ -82,6 +82,10 @@ html, body {
   position: fixed;
 }
 
+.mdc-icon-toggle {
+  @include mdc-icon-button-ink-color($mdc-theme-primary);
+}
+
 mdc-dialog-content {
   display: flex;
   flex-direction: column;
