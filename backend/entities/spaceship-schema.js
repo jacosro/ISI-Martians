@@ -5,7 +5,6 @@ const schema = baseSchema({
     id: Number,
     name: String,
     maxPassengers: Number,
-    passengers: Number,
     fromMothership_id: Number,
     toMothership_id: Number
 });

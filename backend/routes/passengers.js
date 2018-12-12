@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
 const Passenger = require('../entities/models').Passenger;
+const Spaceship = require('../entities/models').Spaceship;
+
 const errorObject = require('./baseRouting').errorObject;
 const okObject = require('./baseRouting').okObject;
 const responseWithQuery = require('./baseRouting').responseWithQuery;
@@ -32,63 +34,43 @@ router.post('/', (req, res) => {
     Passenger.create(passenger, responseWithQuery(res));
 });
 
-router.post('/board', (req, res) => {
-    const data = req.body;
+router.post('/:id/board', (req, res) => {
+    const spaceshipId = req.body.spaceshipId;
 
-    // todo
+    if (!spaceshipId) {
+        errorObject.error = "Parameter 'spaceshipId' is missing";
+        return res.status(400).json(errorObject);
+    }
 
-    errorObject.error = "Not implemented";
-    return res.status(400).json(errorObject);
+    Promise.all([
+        Passenger.find({ spaceship_id: req.params.id }),
+        Spaceship.findOne({ id: req.params.id }, 'maxPassengers')
+    ]).then(([passengers, spaceship]) => {
+        if (passengers.length >= spaceship.maxPassengers) {
+            errorObject.error = `Spaceship with id ${spaceshipId} has reached its max capacity`;
+            return res.status(400).json(errorObject);
+        }
 
-    // if (!data.hasOwnProperty("spaceshipId") || !data.hasOwnProperty("passengerId")) {
-    //     errorObject.error = "Data sent must contain spaceshipId and passengerId";
-    //     return res.status(400).json(errorObject);
-    // }
-    //
-    // Spaceship.findById(data.spaceshipId, (err, spaceship) => {
-    //     if (err) {
-    //         errorObject.error = err;
-    //         return res.status(400).json(errorObject);
-    //     }
-    //
-    //     if (spaceship.passengers >= spaceship.maxPassengers) {
-    //         errorObject.error = "No more passengers can board on this spaceship!";
-    //         return res.status(400).json(errorObject);
-    //     }
-    //
-    //
-    // })
-    //
-    // Passenger.findByIdAndUpdate(data.passengerId, {
-    //     spaceship: data.spaceshipId
-    // }, (err, res) => {
-    //     if (err) {
-    //         errorObject.error = err;
-    //         return res.status(400).json(errorObject);
-    //     }
-    //
-    //     Spaceship.findByIdAndUpdate(data.spaceshipId, {
-    //
-    //     }, (err, res) => {
-    //         if (err) {
-    //             errorObject.error = err;
-    //             return res.status(400).json(errorObject);
-    //         }
-    //
-    //         return res.json(okObject);
-    //     })
-    // })
-    //
-    //
-    // okObject.result = null;
-    // res.json(okObject);
+        return Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: spaceshipId } });
+    }).then(() => {
+        okObject.result = null;
+        return res.json(okObject);
+    }).catch((error) => {
+        errorObject.error = error.toString();
+        return res.status(500).json(errorObject);
+    });
 });
 
-router.post('/disembark', (req, res) => {
-    // todo
-
-    errorObject.error = "Not implemented";
-    return res.status(400).json(errorObject);
-})
+router.post('/:id/land', (req, res) => {
+    Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: null }})
+        .then(() => {
+            okObject.result = null;
+            return res.json(okObject);
+        })
+        .catch(error => {
+            errorObject.error = error.toString();
+            return res.status(500).json(errorObject);
+        });
+});
 
 module.exports = router;
