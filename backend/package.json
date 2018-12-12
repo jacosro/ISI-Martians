@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "start:dev": "nodemon ./bin/www",
     "test": "mocha --timeout 10000 --exit"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
   "devDependencies": {
     "mocha": "^5.2.0",
     "chai": "^4.2.0",
-    "chai-http": "^4.2.0"
+    "chai-http": "^4.2.0",
+    "nodemon": "^1.18.8"
   }
 }

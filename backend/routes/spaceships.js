@@ -39,54 +39,61 @@ router.post('/:id/inspect', (req, res) => {
     // check inspection date
     const now = moment();
 
-    Inspection.find({
-        date: {
-            $gte: now.subtract(1, 'days').toDate(),
-            // $lte: now.
-        }
-    });
+    Inspection.find({ spaceship_id: req.params.id })
+        .select('date')
+        .then(async inspections => {
+            for (let inspection of inspections) {
+                const momentDate = moment(inspection.date);
 
-    // get all passengers of the spaceship
+                console.log("Inspection date: " +  inspection.date);
+                console.log("Moment inspection date: " + momentDate)
 
-    Promise.all([
-        Passenger.find()
-            .select('id')
-            .where('spaceship_id')
-            .equals(req.params.id)
-            .exec(),
-        Inspection.find()
-            .select('id')
-            .sort({ id: -1 })
-            .limit(1)
-            .exec()
-    ]).then(([passengersIds, inspectionIds]) => {
-        let id = inspectionIds[0];
-
-        if (!id) {
-            id = 1;
-        } else {
-            id += 1;
-        }
-
-        Inspection.create({
-            id: id,
-            inspector: inspector,
-            spaceship_id: req.params.id,
-            passengers_id: passengersIds,
-            date: moment().toDate()
-        }, (error, res) => {
-            if (!error) {
-                errorObject.error = error.toString();
-                return res.status(500).json(errorObject);
+                if (momentDate.isSame(now, 'day')) {
+                    throw new DateError("Only one inspection can be made each day")
+                }
             }
+        }).then(() => 
+            Promise.all([
+                Passenger.find()
+                    .where('spaceship_id')
+                    .equals(req.params.id)
+                    .exec(),
+                Inspection.find()
+                    .select('id')
+                    .sort({ id: -1 })
+                    .limit(1)
+                    .exec(),
+                Spaceship.findOne({ id: req.params.id })
+            ])
+        ).then(([passengers, inspections, spaceship]) => {
+            const nextId = inspections[0] ? inspections[0].id + 1 : 1;
 
-            okObject.result = res;
+            return Inspection.create({
+                id: nextId,
+                inspector: inspector,
+                spaceship_id: req.params.id,
+                passengers_ids: passengers.map(passenger => passenger.id),
+                passengers: passengers,
+                spaceship: spaceship,
+                date: moment().toDate()
+            });
+        }).then(async (inspection) => {
+            const inspect = await Inspection.populate(inspection, [{ path: 'passengers' }, { path: 'spaceship' }])
+            
+            okObject.result = inspect;
             return res.json(okObject);
-        })
-    });
+        }).catch(error => {
+            const status = error instanceof DateError ? 400 : 500;
 
-    // errorObject.error = "Not implemented";
-    // return res.status(400).json(errorObject);
+            errorObject.error = error.toString();
+            res.status(status).json(errorObject);
+        });
 });
+
+class DateError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
 
 module.exports = router;
