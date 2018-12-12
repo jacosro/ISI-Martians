@@ -49,25 +49,19 @@ router.post('/:id/board', (req, res) => {
         if (passengers.length >= spaceship.maxPassengers) {
             errorObject.error = `Spaceship with id ${spaceshipId} has reached its max capacity`;
             return res.status(400).json(errorObject);
-        } 
-        
-        Promise.all([
-            Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: spaceshipId }}),
-            Spaceship.findOneAndUpdate({ id: spaceshipId }, { $inc: { maxPassengers: 1 }})
-        ]).then(() => {
-            okObject.result = null;
-            return res.json(okObject);
-        }).catch ((error) => {
-            errorObject.error = error.toString();
-            return res.status(500).json(errorObject);
-        });
+        }
+
+        return Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: spaceshipId } });
+    }).then(() => {
+        okObject.result = null;
+        return res.json(okObject);
     }).catch((error) => {
         errorObject.error = error.toString();
         return res.status(500).json(errorObject);
     });
 });
 
-router.post('/:id/unboard', (req, res) => {
+router.post('/:id/land', (req, res) => {
     Passenger.findOne({ id: req.params.id }, 'passenger_id spaceship_id', (error, passenger) => {
         if (error) {
             errorObject.error = error.toString();
