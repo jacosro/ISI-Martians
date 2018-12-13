@@ -27,4 +27,13 @@ export class PassengerService extends BaseService {
     return this.serverPost(this.passengersEndpoint, passenger);
   }
 
+  /**
+   * Boards a passenger into a spaceship
+   * @param passengerId
+   * @param spaceshipId
+   */
+  board(passengerId: Number, spaceshipId: string): Observable<Passenger> {
+    let spaceship = {'spaceshipId' : spaceshipId};
+    return this.serverPost(this.passengersEndpoint + '/' + passengerId + '/board', spaceship);
+  }
 }
