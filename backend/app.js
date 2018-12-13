@@ -27,7 +27,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://database:27017/martians')
+const Passenger = require('./entities/models').Passenger;
+
+const dbUrl = process.env.NODE_ENV === 'test' 
+        ? 'mongodb://database:27017/martians-test'
+        : 'mongodb://database:27017/martians'
+
+console.log(dbUrl);
+
+mongoose.connect(dbUrl)
     .then(() => {
         console.log('Connected to database!')
     })
