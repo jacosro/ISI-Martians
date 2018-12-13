@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
 const baseSchema = require('./base-schema');
 
 const schema = baseSchema({
-    id: Number,
-    inspector: String,
-    spaceship_id: Number,
-    date: Date,
-    passengers_ids: [Number]
+    id: { type: Number, unique: true, required: true, dropDups: true },
+    inspector: { type: String, required: true },
+    spaceship_id: { type: Number, required: true },
+    date: { type: Date, required: true },
+    passengers_ids: { type: [Number], required: true },
 });
 
 schema.virtual('spaceship', {

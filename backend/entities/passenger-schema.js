@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const baseSchema = require('./base-schema');
 
 const schema = baseSchema({
-    id: Number,
-    name: String,
-    spaceship_id: Number
+    id: { type: Number, unique: true, required: true, dropDups: true },
+    name: { type: String, required: true },
+    spaceship_id: { type: Number, default: null }
 });
 
 schema.virtual('spaceship', {
