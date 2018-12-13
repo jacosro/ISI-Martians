@@ -1,10 +1,10 @@
-import {Component, Inject, NgModule, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, NgModule, OnInit, ViewChild} from '@angular/core';
 import {MDC_DIALOG_DATA, MdcDialog, MdcDialogRef, MdcSnackbar} from '@angular-mdc/web';
 import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
-import {DialogData} from '../list-mothership/list-mothership.component';
-import {SpaceshipService} from "../services/spaceshipService";
-import {MothershipService} from "../services/mothershipService";
-import {MatTableDataSource} from "@angular/material";
+import {DialogData} from '../mothership/list-mothership.component';
+import {SpaceshipService} from "../../services/spaceshipService";
+import {MothershipService} from "../../services/mothershipService";
+import {MatSort, MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-list-spaceship',
@@ -14,6 +14,8 @@ import {MatTableDataSource} from "@angular/material";
 export class ListSpaceshipComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
+
+  @ViewChild(MatSort) sort: MatSort;
 
   columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id'];
   myData: Spaceship[] = [
@@ -31,7 +33,8 @@ export class ListSpaceshipComponent implements OnInit {
     this.spaceshipService.getAll()
       .subscribe(spaceships => {
         this.myData = spaceships;
-        this.dataSource = new MatTableDataSource(this.myData)
+        this.dataSource = new MatTableDataSource(this.myData);
+        this.dataSource.sort = this.sort;
       }, error => {
         console.log(error);
       });
@@ -47,11 +50,18 @@ export class ListSpaceshipComponent implements OnInit {
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: true
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`dialog: ${result}`);
+    dialogRef.componentInstance.onCreate.subscribe(() => {
+      this.refresh();
     });
   }
 
+  refresh(){
+    this.spaceshipService.getAll().subscribe(spaceships => {
+      this.dataSource.data = spaceships;
+    }, error => {
+      console.log(error);
+    });
+  }
 }
 
 
@@ -72,6 +82,7 @@ export class SpaceshipCreateDialog implements OnInit {
   motherships: Mothership[] = [
 
   ];
+  onCreate = new EventEmitter();
 
   loadMotherships() {
     this.mothershipService.getAll()
@@ -116,6 +127,7 @@ export class SpaceshipCreateDialog implements OnInit {
           console.log(value);
           this.message = 'Se ha creado correctamente';
           this.showSnackbar();
+          this.onCreate.emit();
         }, error => {
           console.log(error);
         }

@@ -1,0 +1,24 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Asignar pasajero</mdc-dialog-title>
+      <form [formGroup]="passengerBoardForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content style="overflow: inherit;">
+          <mdc-form-field>
+            <mdc-select formControlName="spaceshipId" placeholder="Aeronave" outlined >
+              <mdc-icon mdcSelectIcon>flight_land</mdc-icon>
+              <option></option>
+              <option *ngFor="let spaceship of spaceships" [value]="spaceship.id">
+                {{spaceship.name}}
+              </option>
+            </mdc-select>
+          </mdc-form-field>
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Asignar</button>
+        </mdc-dialog-actions>
+      </form>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

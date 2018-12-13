@@ -5,15 +5,16 @@ import { AppMaterialModule } from './material.module';
 
 import {
   MothershipCreateDialog
-} from './list-mothership/list-mothership.component';
+} from './views/mothership/list-mothership.component';
 
 import {
   SpaceshipCreateDialog
-} from './list-spaceship/list-spaceship.component';
+} from './views/spaceship/list-spaceship.component';
 
 import {
+  PassengerBoardDialog,
   PassengerCreateDialog
-} from './list-passenger/list-passenger.component';
+} from './views/passenger/list-passenger.component';
 
 @NgModule({
   imports: [
@@ -25,12 +26,14 @@ import {
   declarations: [
     MothershipCreateDialog,
     SpaceshipCreateDialog,
-    PassengerCreateDialog
+    PassengerCreateDialog,
+    PassengerBoardDialog
   ],
   entryComponents: [
     MothershipCreateDialog,
     SpaceshipCreateDialog,
-    PassengerCreateDialog
+    PassengerCreateDialog,
+    PassengerBoardDialog
   ]
 })
 export class DialogModule { }

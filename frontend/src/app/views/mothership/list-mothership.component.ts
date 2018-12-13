@@ -1,12 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, ViewChild} from '@angular/core';
 import { MdcDialog, MdcDialogRef, MDC_DIALOG_DATA, MdcSnackbar } from '@angular-mdc/web';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {MothershipService} from "../services/mothershipService";
-import {MatTableDataSource} from "@angular/material";
+import {MothershipService} from "../../services/mothershipService";
+import {MatSort, MatTableDataSource} from "@angular/material";
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  passengerId: Number;
 }
 
 @Component({
@@ -18,8 +17,9 @@ export class ListMothershipComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
 
+  @ViewChild(MatSort) sort: MatSort;
 
-  columnsToDisplay = ['id', 'userName'];
+  columnsToDisplay = ['id', 'name'];
   myData: Mothership[] = [
 
   ];
@@ -36,15 +36,24 @@ export class ListMothershipComponent implements OnInit {
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: true
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`dialog: ${result}`);
+    dialogRef.componentInstance.onCreate.subscribe(() =>{
+      this.refresh();
+    });
+  }
+
+  refresh(){
+    this.mothershipService.getAll().subscribe(motherships => {
+      this.dataSource.data = motherships;
+    }, error => {
+      console.log(error);
     });
   }
 
   private loadData() {
     this.mothershipService.getAll().subscribe(motherships => {
       this.myData = motherships;
-      this.dataSource = new MatTableDataSource(this.myData)
+      this.dataSource = new MatTableDataSource(this.myData);
+      this.dataSource.sort = this.sort;
     }, error => {
       console.log(error);
     });
@@ -69,6 +78,7 @@ export class MothershipCreateDialog {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
+  onCreate = new EventEmitter();
 
   mothershipForm = new FormGroup({
     id: new FormControl('', Validators.required),
@@ -97,6 +107,7 @@ export class MothershipCreateDialog {
           console.log(value);
           this.message = 'Se ha creado correctamente';
           this.showSnackbar();
+          this.onCreate.emit();
         }, error => {
           console.log(error);
         }

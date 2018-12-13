@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material';
+import { MatSortModule } from "@angular/material";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ListSpaceshipComponent, SpaceshipCreateDialog} from './list-spaceship/list-spaceship.component';
-import { ListMothershipComponent } from './list-mothership/list-mothership.component';
-import { ListPassengerComponent } from './list-passenger/list-passenger.component';
+import {ListSpaceshipComponent, SpaceshipCreateDialog} from './views/spaceship/list-spaceship.component';
+import { ListMothershipComponent } from './views/mothership/list-mothership.component';
+import { ListPassengerComponent } from './views/passenger/list-passenger.component';
 import {Routes, RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
@@ -20,9 +21,9 @@ import { MainViewComponent } from './main-view/main-view.component';
 
 const appRoutes: Routes = [
   { path: 'main-view', component: MainViewComponent },
-  { path: 'list-passenger', component: ListPassengerComponent },
-  { path: 'list-mothership', component: ListMothershipComponent },
-  { path: 'list-spaceship', component: ListSpaceshipComponent }
+  { path: 'passenger', component: ListPassengerComponent },
+  { path: 'mothership', component: ListMothershipComponent },
+  { path: 'spaceship', component: ListSpaceshipComponent }
 ];
 @NgModule({
   entryComponents: [
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     AppMaterialModule,
     MatTableModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSortModule
   ],
   providers: [
     MothershipService,

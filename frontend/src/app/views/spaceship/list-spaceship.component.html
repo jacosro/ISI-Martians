@@ -1,18 +1,20 @@
 <button mdc-fab position='bottomRight' (click)="openForm()">
   <mdc-icon>add</mdc-icon>
 </button>
-<mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" ></mdc-text-field>
-<table mat-table [dataSource]="dataSource" [mdcElevation]="1" class="app-table">
+<mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" >
+  <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
+</mdc-text-field>
+<table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort class="app-table">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
     <td mat-cell *matCellDef="let spaceship"> {{spaceship.id}} </td>
   </ng-container>
   <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
     <td mat-cell *matCellDef="let spaceship"> {{spaceship.name}} </td>
   </ng-container>
   <ng-container matColumnDef="maxPassengers">
-    <th mat-header-cell *matHeaderCellDef>Num máx.</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Num máx.</th>
     <td mat-cell *matCellDef="let spaceship"> {{spaceship.maxPassengers}} </td>
   </ng-container>
   <ng-container matColumnDef="fromMothership_id">
