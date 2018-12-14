@@ -43,8 +43,8 @@ router.post('/:id/board', (req, res) => {
     }
 
     Promise.all([
-        Passenger.find({ spaceship_id: req.params.id }),
-        Spaceship.findOne({ id: req.params.id }, 'maxPassengers')
+        Passenger.find({ spaceship_id: spaceshipId }),
+        Spaceship.findOne({ id: spaceshipId }, 'maxPassengers')
     ]).then(([passengers, spaceship]) => {
         if (passengers.length >= spaceship.maxPassengers) {
             errorObject.error = `Spaceship with id ${spaceshipId} has reached its max capacity`;
