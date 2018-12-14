@@ -13,7 +13,7 @@ import {
 
 import {
   PassengerBoardDialog,
-  PassengerCreateDialog
+  PassengerCreateDialog, PassengerLandDialog
 } from './views/passenger/list-passenger.component';
 
 @NgModule({
@@ -27,13 +27,15 @@ import {
     MothershipCreateDialog,
     SpaceshipCreateDialog,
     PassengerCreateDialog,
-    PassengerBoardDialog
+    PassengerBoardDialog,
+    PassengerLandDialog
   ],
   entryComponents: [
     MothershipCreateDialog,
     SpaceshipCreateDialog,
     PassengerCreateDialog,
-    PassengerBoardDialog
+    PassengerBoardDialog,
+    PassengerLandDialog
   ]
 })
 export class DialogModule { }

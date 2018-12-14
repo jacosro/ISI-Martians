@@ -63,6 +63,19 @@ export class ListPassengerComponent implements OnInit {
     });
   }
 
+  openLandDialog(passengerId: Number){
+    console.log(passengerId);
+    const dialogRef = this.dialog.open(PassengerLandDialog, {
+      escapeToClose: this.escapeToClose,
+      clickOutsideToClose: this.clickOutsideToClose,
+      scrollable: true,
+      data: { 'passengerId' : passengerId }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`dialog: ${result}`);
+    });
+  }
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -191,4 +204,24 @@ export class PassengerBoardDialog implements OnInit {
   ngOnInit(): void {
     this.loadSpaceships()
   }
+}
+
+
+@Component({
+  template: `
+  <mdc-dialog>
+    <mdc-dialog-container>
+      <mdc-dialog-surface>
+        <mdc-dialog-title>Discard draft?</mdc-dialog-title>
+        <mdc-dialog-actions>
+          <button mdcDialogButton mdcDialogAction="close">Cancel</button>
+          <button mdcDialogButton mdcDialogAction="accept">Discard</button>
+        </mdc-dialog-actions>
+      </mdc-dialog-surface>
+    </mdc-dialog-container>
+  </mdc-dialog>
+  `,
+})
+export class PassengerLandDialog {
+  constructor(public dialogRef: MdcDialogRef<PassengerLandDialog>) { }
 }

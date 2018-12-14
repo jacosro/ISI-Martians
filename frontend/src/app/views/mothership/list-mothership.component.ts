@@ -109,6 +109,8 @@ export class MothershipCreateDialog {
           this.showSnackbar();
           this.onCreate.emit();
         }, error => {
+          this.message = 'Error';
+          this.showSnackbar();
           console.log(error);
         }
       );
