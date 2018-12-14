@@ -20,7 +20,7 @@ import {CommonModule} from "@angular/common";
 import { MainViewComponent } from './main-view/main-view.component';
 
 const appRoutes: Routes = [
-  { path: 'main-view', component: MainViewComponent },
+  { path: '', component: MainViewComponent },
   { path: 'passenger', component: ListPassengerComponent },
   { path: 'mothership', component: ListMothershipComponent },
   { path: 'spaceship', component: ListSpaceshipComponent }
