@@ -17,7 +17,7 @@ export class ListSpaceshipComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id'];
+  columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id', 'revision'];
   myData: Spaceship[] = [
 
   ];
@@ -55,6 +55,17 @@ export class ListSpaceshipComponent implements OnInit {
     });
   }
 
+  openRevisionForm() {
+    const dialogRef = this.dialog.open(SpaceshipCreateDialog, {
+      escapeToClose: this.escapeToClose,
+      clickOutsideToClose: this.clickOutsideToClose,
+      scrollable: true
+    });
+    dialogRef.componentInstance.onCreate.subscribe(() => {
+      this.refresh();
+    });
+  }
+
   refresh(){
     this.spaceshipService.getAll().subscribe(spaceships => {
       this.dataSource.data = spaceships;
@@ -64,9 +75,68 @@ export class ListSpaceshipComponent implements OnInit {
   }
 }
 
-
+/*
+  Spaceship Revision Dialog
+*/
 @Component({
   templateUrl: './create-spaceship.dialog.html'
+})
+export class SpaceshipRevisionDialog implements OnInit {
+  constructor(public dialogRef: MdcDialogRef<SpaceshipRevisionDialog>,
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService, public mothershipService: MothershipService) { }
+
+  message = '';
+  action = 'OK';
+  multiline = false;
+  dismissOnAction = true;
+  align = 'center';
+  focusAction = false;
+  actionOnBottom = false;
+  motherships: Mothership[] = [
+
+  ];
+  onCreate = new EventEmitter();
+
+  loadMotherships() {
+    this.mothershipService.getAll()
+      .subscribe(motherships => {
+        this.motherships = motherships;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  spaceshipRevisionForm = new FormGroup({
+    id: new FormControl('', Validators.required),
+  });
+
+  showSnackbar() {
+    const snackbarRef = this.snackbar.show(this.message, this.action, {
+      align: this.align,
+      multiline: this.multiline,
+      dismissOnAction: this.dismissOnAction,
+      focusAction: this.focusAction,
+      actionOnBottom: this.actionOnBottom,
+    });
+
+    snackbarRef.afterDismiss().subscribe(() => {
+      console.log('The snack-bar was dismissed');
+    });
+  }
+
+  submit(): void {
+    if (this.spaceshipRevisionForm.valid) {
+
+    }
+  }
+
+  ngOnInit(): void {
+    this.loadMotherships()
+  }
+}
+
+@Component({
+  templateUrl: './revision-spaceship.dialog.html'
 })
 export class SpaceshipCreateDialog implements OnInit {
   constructor(public dialogRef: MdcDialogRef<SpaceshipCreateDialog>,
