@@ -1,11 +1,6 @@
 <button mdc-fab position='bottomRight' (click)="openCreateForm()">
   <mdc-icon>add</mdc-icon>
 </button>
-<div style="margin-bottom: 16px; margin-top: 4px; position: sticky; top: 1%; position: -webkit-sticky; /* Safari */">
-<mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" >
-  <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
-</mdc-text-field>
-</div>
 <table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort class="app-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -24,6 +19,14 @@
       </button>
     </td>
   </ng-container>
+  <ng-container matColumnDef="filter">
+    <td mat-header-row *matHeaderCellDef colspan="2" style="z-index: 0; position: sticky; top:0;">
+      <mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" style="margin-left: 8px; margin-top: 4px;">
+        <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
+      </mdc-text-field>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>
 </table>
