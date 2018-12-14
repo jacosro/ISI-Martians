@@ -137,6 +137,9 @@ export class PassengerCreateDialog {
           this.onCreate.emit();
         }, error => {
           console.log(error);
+          if(error.errmsg.includes("duplicate")) this.message = 'Ya existe un pasajero con el ID especificado';
+          else this.message = 'Se ha producido un error desconocido';
+          this.showSnackbar()
         }
       );
       this.dialogRef.close();

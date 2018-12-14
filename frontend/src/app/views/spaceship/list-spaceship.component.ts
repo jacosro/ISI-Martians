@@ -56,7 +56,7 @@ export class ListSpaceshipComponent implements OnInit {
   }
 
   openRevisionForm() {
-    const dialogRef = this.dialog.open(SpaceshipCreateDialog, {
+    const dialogRef = this.dialog.open(SpaceshipRevisionDialog, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: true
@@ -79,7 +79,7 @@ export class ListSpaceshipComponent implements OnInit {
   Spaceship Revision Dialog
 */
 @Component({
-  templateUrl: './create-spaceship.dialog.html'
+  templateUrl: './revision-spaceship.dialog.html'
 })
 export class SpaceshipRevisionDialog implements OnInit {
   constructor(public dialogRef: MdcDialogRef<SpaceshipRevisionDialog>,
@@ -136,7 +136,7 @@ export class SpaceshipRevisionDialog implements OnInit {
 }
 
 @Component({
-  templateUrl: './revision-spaceship.dialog.html'
+  templateUrl: './create-spaceship.dialog.html'
 })
 export class SpaceshipCreateDialog implements OnInit {
   constructor(public dialogRef: MdcDialogRef<SpaceshipCreateDialog>,
@@ -200,6 +200,9 @@ export class SpaceshipCreateDialog implements OnInit {
           this.onCreate.emit();
         }, error => {
           console.log(error);
+          if(error.errmsg.includes("duplicate")) this.message = 'Ya existe una aeronave con el ID especificado';
+          else this.message = 'Se ha producido un error desconocido';
+          this.showSnackbar()
         }
       );
       this.dialogRef.close();

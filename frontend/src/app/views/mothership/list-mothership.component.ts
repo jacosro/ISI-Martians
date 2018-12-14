@@ -109,9 +109,10 @@ export class MothershipCreateDialog {
           this.showSnackbar();
           this.onCreate.emit();
         }, error => {
-          this.message = 'Error';
-          this.showSnackbar();
           console.log(error);
+          if(error.errmsg.includes("duplicate")) this.message = 'Ya existe una nave nodriza con el ID especificado';
+          else this.message = 'Se ha producido un error desconocido';
+          this.showSnackbar()
         }
       );
       this.dialogRef.close();
