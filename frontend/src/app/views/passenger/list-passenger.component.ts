@@ -89,6 +89,9 @@ export class ListPassengerComponent implements OnInit {
   }
 }
 
+/*
+  Passenger Create Dialog
+*/
 @Component({
   templateUrl: './create-passenger.dialog.html'
 })
@@ -141,6 +144,9 @@ export class PassengerCreateDialog {
   }
 }
 
+/*
+  Passenger Board Dialog
+*/
 @Component({
   templateUrl: './board-passenger.dialog.html'
 })
@@ -206,7 +212,9 @@ export class PassengerBoardDialog implements OnInit {
   }
 }
 
-
+/*
+  Passenger Land Dialog
+*/
 @Component({
   template: `
   <mdc-dialog>

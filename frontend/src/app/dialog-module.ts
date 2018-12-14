@@ -8,7 +8,7 @@ import {
 } from './views/mothership/list-mothership.component';
 
 import {
-  SpaceshipCreateDialog
+  SpaceshipCreateDialog, SpaceshipRevisionDialog
 } from './views/spaceship/list-spaceship.component';
 
 import {
@@ -28,14 +28,16 @@ import {
     SpaceshipCreateDialog,
     PassengerCreateDialog,
     PassengerBoardDialog,
-    PassengerLandDialog
+    PassengerLandDialog,
+    SpaceshipRevisionDialog
   ],
   entryComponents: [
     MothershipCreateDialog,
     SpaceshipCreateDialog,
     PassengerCreateDialog,
     PassengerBoardDialog,
-    PassengerLandDialog
+    PassengerLandDialog,
+    SpaceshipRevisionDialog
   ]
 })
 export class DialogModule { }
