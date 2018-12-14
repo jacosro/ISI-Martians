@@ -1,9 +1,11 @@
 <button mdc-fab position='bottomRight' (click)="openCreateForm()">
   <mdc-icon>add</mdc-icon>
 </button>
+<div style="margin-bottom: 16px; margin-top: 4px; position: sticky; top: 1%; position: -webkit-sticky; /* Safari */">
 <mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" >
   <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
 </mdc-text-field>
+</div>
 <table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort class="app-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
