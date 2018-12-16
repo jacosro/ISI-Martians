@@ -1,11 +1,6 @@
 <button mdc-fab position='bottomRight' (click)="openCreateForm()">
   <mdc-icon>add</mdc-icon>
 </button>
-<div style="margin-bottom: 16px; margin-top: 4px; position: sticky; top: 1%; position: -webkit-sticky; /* Safari */">
-<mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" >
-  <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
-</mdc-text-field>
-</div>
 <table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort class="app-table">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -15,15 +10,31 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
     <td mat-cell *matCellDef="let passenger"> {{passenger.name}} </td>
   </ng-container>
-  <ng-container matColumnDef="assign" stickyEnd>
-    <th mat-header-cell *matHeaderCellDef></th>
+  <ng-container matColumnDef="spaceshipId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id Aeronave</th>
     <td mat-cell *matCellDef="let passenger">
-      <button mdcIconButton (click)="openBoardForm(passenger.id)" #demoiconbutton3 [on]="true">
-        <mdc-icon mdcIconOn>flight_takeoff</mdc-icon>
-        <mdc-icon class="app-icon-toggle">flight_land</mdc-icon>
+      <div *ngIf="passenger.spaceship == null">
+        No asignado
+      </div>
+      <div *ngIf="passenger.spaceship != null">
+        {{passenger.spaceship.id}}
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="filter">
+    <td mat-header-row *matHeaderCellDef colspan="2" style="z-index: 0; position: sticky; top:0;">
+      <mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" style="margin-left: 8px; margin-top: 4px;">
+        <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
+      </mdc-text-field>
+      <button mdc-button primary (click)="openBoardForm()" style="margin-left: 8px; margin-right: 4px;">
+        Asignar
+      </button>
+      <button mdc-button outlined (click)="openLandDialog()" style="margin-left: 4px;">
+        Bajar
       </button>
     </td>
   </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>
 </table>

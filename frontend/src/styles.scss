@@ -87,6 +87,13 @@ html, body {
   @include mdc-icon-button-ink-color($mdc-theme-primary);
 }
 
+.app-dialog-content {
+  display: flex;
+  flex-direction: column;
+  overflow: inherit;
+}
+
+
 /**
 Modified z-index of mdc-components for be above the table headers rows
  */

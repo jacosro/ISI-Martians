@@ -36,4 +36,9 @@ export class PassengerService extends BaseService {
     let spaceship = {'spaceshipId' : spaceshipId};
     return this.serverPost(this.passengersEndpoint + '/' + passengerId + '/board', spaceship);
   }
+
+  land(passengerId: Number, spaceshipId: string): Observable<Passenger> {
+    let spaceship = {'spaceshipId' : spaceshipId};
+    return this.serverPost(this.passengersEndpoint + '/' + passengerId + '/land', spaceship);
+  }
 }

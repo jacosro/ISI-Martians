@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.navStart.subscribe(evt => {
       switch (evt.url) {
+        case '/#' : this.title = 'SIGEM' ; break;
         case '/spaceship' : this.title = 'Aeronaves'; break;
         case '/mothership' : this.title = 'Naves nodrizas'; break;
         case '/passenger' : this.title = 'Pasajeros'; break;
