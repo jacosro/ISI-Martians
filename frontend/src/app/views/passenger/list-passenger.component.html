@@ -26,15 +26,15 @@
       <mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" style="margin-left: 8px; margin-top: 4px;">
         <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
       </mdc-text-field>
-      <button mdc-button primary (click)="openBoardForm()" style="margin-left: 8px; margin-right: 4px;">
+      <button mdc-button secondary (click)="openBoardForm()" style="margin-left: 64px; margin-right: 4px;">
         Asignar
       </button>
-      <button mdc-button outlined (click)="openLandDialog()" style="margin-left: 4px;">
+      <button mdc-button secondary (click)="openLandDialog()" style="margin-left: 4px;">
         Bajar
       </button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true;"></tr>
   <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>
 </table>

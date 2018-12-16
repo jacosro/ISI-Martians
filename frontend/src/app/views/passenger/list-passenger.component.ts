@@ -5,6 +5,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { DialogData } from '../mothership/list-mothership.component';
 import {MatSort, MatTableDataSource} from "@angular/material";
 import {SpaceshipService} from "../../services/spaceshipService";
+import {PassengerBoardDialog} from "./board-passenger.dialog";
+import {PassengerCreateDialog} from "./create-passenger.dialog";
 
 @Component({
   selector: 'app-list-passenger',
@@ -14,20 +16,23 @@ import {SpaceshipService} from "../../services/spaceshipService";
 export class ListPassengerComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
-
   @ViewChild(MatSort) sort: MatSort;
-
   columnsToDisplay = ['id', 'name', 'spaceshipId'];
-  myData: Passenger[] = [
-    // {name: 'Antoni', id: '18'},
-  ];
+  myData: Passenger[] = [];
   private dataSource: MatTableDataSource<Passenger>;
+
   constructor(private passengerService: PassengerService, public dialog: MdcDialog) { }
 
+  /**
+   * OnInit method
+   */
   ngOnInit() {
     this.loadPassengers();
   }
 
+  /**
+   *
+   */
   public loadPassengers() {
     this.passengerService.getAll()
       .subscribe(passengers => {
@@ -39,6 +44,9 @@ export class ListPassengerComponent implements OnInit {
       });
   }
 
+  /**
+   * Opens the Passenger Creation dialog Form
+   */
   openCreateForm() {
     const dialogRef = this.dialog.open(PassengerCreateDialog, {
       escapeToClose: this.escapeToClose,
@@ -57,9 +65,9 @@ export class ListPassengerComponent implements OnInit {
       scrollable: true,
       //data: { 'passengerId' : passengerId }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`dialog: ${result}`);
-    });
+    dialogRef.componentInstance.onBoard.subscribe(() => {
+      this.refresh();
+    })
   }
 
   openLandDialog(){
@@ -69,10 +77,9 @@ export class ListPassengerComponent implements OnInit {
       scrollable: true,
       //data: { 'passengerId' : passengerId }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`dialog: ${result}`);
-      //if(result == 'accept')
-    });
+    dialogRef.componentInstance.onLand.subscribe(() => {
+      this.refresh();
+    })
   }
 
   applyFilter(filterValue: string) {
@@ -89,65 +96,6 @@ export class ListPassengerComponent implements OnInit {
 }
 
 /*
-  Passenger Create Dialog
-*/
-@Component({
-  templateUrl: './create-passenger.dialog.html'
-})
-export class PassengerCreateDialog {
-  constructor(public dialogRef: MdcDialogRef<PassengerCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService) { }
-
-  message = '';
-  action = 'OK';
-  multiline = false;
-  dismissOnAction = true;
-  align = 'center';
-  focusAction = false;
-  actionOnBottom = false;
-  onCreate = new EventEmitter();
-
-  passengerForm = new FormGroup({
-    id: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required)
-  });
-
-  showSnackbar() {
-    const snackbarRef = this.snackbar.show(this.message, this.action, {
-      align: this.align,
-      multiline: this.multiline,
-      dismissOnAction: this.dismissOnAction,
-      focusAction: this.focusAction,
-      actionOnBottom: this.actionOnBottom,
-    });
-
-    snackbarRef.afterDismiss().subscribe(() => {
-      console.log('The snack-bar was dismissed');
-    });
-  }
-
-  submit(): void {
-    if (this.passengerForm.valid) {
-      let passenger = {name: this.passengerForm.value.name, id: this.passengerForm.value.id};
-      this.passengerService.create(passenger).subscribe(
-        value => {
-          this.message = 'Se ha creado correctamente';
-          this.showSnackbar();
-          this.onCreate.emit();
-        }, error => {
-          console.log(error);
-          this.message = error;
-          this.showSnackbar()
-        }
-      );
-      this.dialogRef.close();
-    }
-  }
-}
-
-/*
-  Passenger Board Dialog
-*/
 @Component({
   templateUrl: './board-passenger.dialog.html'
 })
@@ -162,6 +110,7 @@ export class PassengerBoardDialog implements OnInit {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
+  onBoard = new EventEmitter();
 
   passengerBoardForm = new FormGroup({
     spaceshipId: new FormControl('', Validators.required),
@@ -200,6 +149,7 @@ export class PassengerBoardDialog implements OnInit {
           //console.log(value);
           this.message = 'Se ha asignado correctamente';
           this.showSnackbar();
+          this.onBoard.emit();
         }, error => {
           console.log(error);
           this.message = error;
@@ -214,6 +164,7 @@ export class PassengerBoardDialog implements OnInit {
     this.loadSpaceships()
   }
 }
+*/
 
 /*
   Passenger Land Dialog
@@ -256,6 +207,7 @@ export class PassengerLandDialog {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
+  onLand = new EventEmitter();
 
   passengerLandForm = new FormGroup({
     spaceshipId: new FormControl('', Validators.required),
@@ -294,6 +246,7 @@ export class PassengerLandDialog {
           //console.log(value);
           this.message = 'Se ha bajado correctamente';
           this.showSnackbar();
+          this.onLand.emit();
         }, error => {
           console.log(error);
           this.message = error;
