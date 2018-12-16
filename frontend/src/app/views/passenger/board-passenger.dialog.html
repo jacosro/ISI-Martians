@@ -3,7 +3,11 @@
     <mdc-dialog-surface>
       <mdc-dialog-title>Asignar pasajero</mdc-dialog-title>
       <form [formGroup]="passengerBoardForm" (ngSubmit)="submit()" autocomplete="off">
-        <mdc-dialog-content style="overflow: inherit;">
+        <mdc-dialog-content class="app-dialog-content">
+          <mdc-form-field>
+            <mdc-text-field formControlName="passengerId" type="number" min=0 label="Id Pasajero" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+          </mdc-form-field>
           <mdc-form-field>
             <mdc-select formControlName="spaceshipId" placeholder="Aeronave" outlined >
               <mdc-icon mdcSelectIcon>flight_land</mdc-icon>

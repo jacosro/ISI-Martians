@@ -17,7 +17,7 @@ export class ListPassengerComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  columnsToDisplay = ['id', 'name', 'assign'];
+  columnsToDisplay = ['id', 'name', 'spaceshipId'];
   myData: Passenger[] = [
     // {name: 'Antoni', id: '18'},
   ];
@@ -50,29 +50,28 @@ export class ListPassengerComponent implements OnInit {
     })
   }
 
-  openBoardForm(passengerId: Number){
-    console.log(passengerId);
+  openBoardForm(){
     const dialogRef = this.dialog.open(PassengerBoardDialog, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: true,
-      data: { 'passengerId' : passengerId }
+      //data: { 'passengerId' : passengerId }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`dialog: ${result}`);
     });
   }
 
-  openLandDialog(passengerId: Number){
-    console.log(passengerId);
+  openLandDialog(){
     const dialogRef = this.dialog.open(PassengerLandDialog, {
       escapeToClose: this.escapeToClose,
       clickOutsideToClose: this.clickOutsideToClose,
       scrollable: true,
-      data: { 'passengerId' : passengerId }
+      //data: { 'passengerId' : passengerId }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`dialog: ${result}`);
+      //if(result == 'accept')
     });
   }
 
@@ -137,8 +136,7 @@ export class PassengerCreateDialog {
           this.onCreate.emit();
         }, error => {
           console.log(error);
-          if(error.errmsg.includes("duplicate")) this.message = 'Ya existe un pasajero con el ID especificado';
-          else this.message = 'Se ha producido un error desconocido';
+          this.message = error;
           this.showSnackbar()
         }
       );
@@ -166,7 +164,8 @@ export class PassengerBoardDialog implements OnInit {
   actionOnBottom = false;
 
   passengerBoardForm = new FormGroup({
-    spaceshipId: new FormControl('', Validators.required)
+    spaceshipId: new FormControl('', Validators.required),
+    passengerId: new FormControl('', Validators.required)
   });
 
   showSnackbar() {
@@ -194,8 +193,9 @@ export class PassengerBoardDialog implements OnInit {
 
   submit(): void {
     if (this.passengerBoardForm.valid) {
+      let passengerId = this.passengerBoardForm.value.passengerId;
       let spaceshipId = this.passengerBoardForm.value.spaceshipId;
-      this.passengerService.board(this.data.passengerId, spaceshipId).subscribe(
+      this.passengerService.board(passengerId, spaceshipId).subscribe(
         value => {
           //console.log(value);
           this.message = 'Se ha asignado correctamente';
@@ -223,16 +223,88 @@ export class PassengerBoardDialog implements OnInit {
   <mdc-dialog>
     <mdc-dialog-container>
       <mdc-dialog-surface>
-        <mdc-dialog-title>Discard draft?</mdc-dialog-title>
+        <mdc-dialog-title>Bajar pasajero</mdc-dialog-title>
+        <form [formGroup]="passengerLandForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content>
+          <mdc-form-field>
+            <mdc-text-field formControlName="passengerId" type="number" min=0 label="Id Pasajero" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+          </mdc-form-field>
+          <mdc-form-field>
+            <mdc-text-field formControlName="spaceshipId" type="number" min=0 label="Id Aeronave" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+          </mdc-form-field>
+        </mdc-dialog-content>
         <mdc-dialog-actions>
-          <button mdcDialogButton mdcDialogAction="close">Cancel</button>
-          <button mdcDialogButton mdcDialogAction="accept">Discard</button>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Bajar</button>
         </mdc-dialog-actions>
+          </form>
       </mdc-dialog-surface>
     </mdc-dialog-container>
   </mdc-dialog>
   `,
 })
 export class PassengerLandDialog {
-  constructor(public dialogRef: MdcDialogRef<PassengerLandDialog>) { }
+  private spaceships: Spaceship[];
+  constructor(public dialogRef: MdcDialogRef<PassengerLandDialog>, @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService, private spaceshipService: SpaceshipService) { }
+
+  message = '';
+  action = 'OK';
+  multiline = false;
+  dismissOnAction = true;
+  align = 'center';
+  focusAction = false;
+  actionOnBottom = false;
+
+  passengerLandForm = new FormGroup({
+    spaceshipId: new FormControl('', Validators.required),
+    passengerId: new FormControl('', Validators.required)
+  });
+
+  showSnackbar() {
+    const snackbarRef = this.snackbar.show(this.message, this.action, {
+      align: this.align,
+      multiline: this.multiline,
+      dismissOnAction: this.dismissOnAction,
+      focusAction: this.focusAction,
+      actionOnBottom: this.actionOnBottom,
+    });
+
+    snackbarRef.afterDismiss().subscribe(() => {
+      console.log('The snack-bar was dismissed');
+    });
+  }
+
+  loadSpaceships() {
+    this.spaceshipService.getAll()
+      .subscribe(spaceships => {
+        this.spaceships = spaceships;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  submit(): void {
+    if (this.passengerLandForm.valid) {
+      let passengerId = this.passengerLandForm.value.passengerId;
+      let spaceshipId = this.passengerLandForm.value.spaceshipId;
+      this.passengerService.land(passengerId, spaceshipId).subscribe(
+        value => {
+          //console.log(value);
+          this.message = 'Se ha bajado correctamente';
+          this.showSnackbar();
+        }, error => {
+          console.log(error);
+          this.message = error;
+          this.showSnackbar();
+        }
+      );
+      this.dialogRef.close();
+    }
+  }
+
+  ngOnInit(): void {
+    this.loadSpaceships()
+  }
 }
