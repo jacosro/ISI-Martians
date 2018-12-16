@@ -23,8 +23,14 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    const spaceship = new Spaceship(req.body);
 
-    // todo: check incoming object ?
+    const error = spaceship.validateSync();
+
+    if (error) {
+        errorObject.error = "Parámetros incorrectos";
+        return res.status(400).json(errorObject);
+    }
 
     Spaceship.create(req.body, responseWithQuery(res));
 });
@@ -85,9 +91,13 @@ router.post('/:id/inspect', (req, res) => {
         }).catch(error => {
             const status = error instanceof DateError ? 400 : 500;
 
-            errorObject.error = error.toString();
+            errorObject.error = error.message;
             res.status(status).json(errorObject);
         });
+});
+
+router.get('/:id/getPassengers', (req, res) => {
+    Passenger.find({ spaceship_id: req.params.id }, responseWithQuery(res));
 });
 
 class DateError extends Error {

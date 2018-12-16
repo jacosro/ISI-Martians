@@ -11,8 +11,8 @@ const okObject = {
 
 const responseWithQuery = (res) => (error, result) => {
     if (error) {
-        errorObject.error = error;
-        return res.status(400).json(errorObject);
+        errorObject.error = error.message;
+        return res.status(500).json(errorObject);
     }
 
     okObject.result = result;
