@@ -9,13 +9,17 @@ const responseWithQuery = require('./baseRouting').responseWithQuery;
 
 
 router.get('/', (req, res) => {
-    Passenger.find(responseWithQuery(res));
+    Passenger.find()
+    .populate('spaceship')
+    .exec(responseWithQuery(res));
 });
 
 router.get('/:id', (req, res) => {
     const reqId = req.params.id;
 
-    Passenger.findOne({ id: reqId }, responseWithQuery(res));
+    Passenger.findOne({ id: reqId })
+    .populate('spaceship')
+    .exec(responseWithQuery(res));
 });
 
 router.post('/', (req, res) => {
@@ -73,6 +77,10 @@ router.post('/:id/land', (req, res) => {
 
     Passenger.findOne({ id: req.params.id })
         .then(passenger => {
+            if (!passenger) {
+                throw new ParamError("El pasajero seleccionado no existe");
+            }
+
             if (passenger.spaceship_id == null) {
                 throw new ParamError("El pasajero seleccionado no está a bordo de ninguna nave");
             }
@@ -87,6 +95,7 @@ router.post('/:id/land', (req, res) => {
             return res.json(okObject);
         })
         .catch(error => {
+            console.error(error);
             errorObject.error = error.message;
             return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
         });
