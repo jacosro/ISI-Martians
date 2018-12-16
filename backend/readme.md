@@ -82,7 +82,7 @@ Paths:
     - Params:
       - _id_
       - _inspector_ (The name of the inspector)
-      - _spaceship_id_ (The id of the spaceship)
-      - _passengers_ids_ (An array of ids of numbers)
+      - _spaceshipId_ (The id of the spaceship)
+      - _passengersIds_ (An array of ids of numbers)
 - `/{id}`:
   - **GET**: Gets an inspection by its id
