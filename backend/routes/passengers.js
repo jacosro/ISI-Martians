@@ -19,15 +19,12 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
-    // todo: check incoming object ?
-
     const passenger = new Passenger(req.body);
 
-    const error = passenger.validateSync();
+    const validationError = passenger.validateSync();
 
-    if (error) {
-        errorObject.error = error;
+    if (validationError) {
+        errorObject.error = "Parámetros incorrectos";
         return res.status(400).json(errorObject);
     }
 
@@ -38,39 +35,65 @@ router.post('/:id/board', (req, res) => {
     const spaceshipId = req.body.spaceshipId;
 
     if (!spaceshipId) {
-        errorObject.error = "Parameter 'spaceshipId' is missing";
+        errorObject.error = "Falta el parámetro \"spaceshipId\"";
         return res.status(400).json(errorObject);
     }
 
     Promise.all([
+        Passenger.findOne({ id: req.params.id }),
         Passenger.find({ spaceship_id: spaceshipId }),
         Spaceship.findOne({ id: spaceshipId }, 'maxPassengers')
-    ]).then(([passengers, spaceship]) => {
-        if (passengers.length >= spaceship.maxPassengers) {
-            errorObject.error = `Spaceship with id ${spaceshipId} has reached its max capacity`;
-            return res.status(400).json(errorObject);
-        }
+    ])
+        .then(([passenger, passengers, spaceship]) => {
+            if (passenger.spaceship_id != null) {
+                throw new ParamError("El pasajero seleccionado ya está subido a una nave")
+            }
 
-        return Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: spaceshipId } });
-    }).then(() => {
-        okObject.result = null;
-        return res.json(okObject);
-    }).catch((error) => {
-        errorObject.error = error.toString();
-        return res.status(500).json(errorObject);
-    });
+            if (passengers.length >= spaceship.maxPassengers) {
+                throw new ParamError(`La nave con id ${spaceshipId} ha alcanzado su capacidad máxima`);
+            }
+
+            return Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: spaceshipId } });
+        }).then(() => {
+            okObject.result = null;
+            return res.json(okObject);
+        }).catch((error) => {
+            errorObject.error = error.message;
+            return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
+        });
 });
 
 router.post('/:id/land', (req, res) => {
-    Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: null }})
-        .then(() => {
+    const spaceshipId = req.body.spaceshipId;
+
+    if (!spaceshipId) {
+        errorObject.error = "Falta el parámetro \"spaceshipId\"";
+        return res.status(400).json(errorObject);
+    }
+
+    Passenger.findOne({ id: req.params.id })
+        .then(passenger => {
+            if (passenger.spaceship_id == null) {
+                throw new ParamError("El pasajero seleccionado no está a bordo de ninguna nave");
+            }
+
+            if (passenger.spaceship_id != spaceshipId) {
+                throw new ParamError("El pasajero indicado no está subido a la nave indicada");
+            }
+
+            return Passenger.findOneAndUpdate({ id: req.params.id }, { $set: { spaceship_id: null }})
+        }).then(() => {
             okObject.result = null;
             return res.json(okObject);
         })
         .catch(error => {
-            errorObject.error = error.toString();
-            return res.status(500).json(errorObject);
+            errorObject.error = error.message;
+            return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
         });
 });
+
+class ParamError extends Error {
+
+}
 
 module.exports = router;

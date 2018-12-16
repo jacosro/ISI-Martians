@@ -14,10 +14,18 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    const inspection = new Inspection(req.body);
 
-    // todo: check incoming object ?
+    const error = inspection.validateSync()
 
-    Inspection.create(req.body, responseWithQuery(res));
+    if (error) {
+        errorObject.error = error;
+        return res.status(400).json(errorObject);
+    }
+
+    
+    
+    Inspection.create(inspection, responseWithQuery(res));
 });
 
 
