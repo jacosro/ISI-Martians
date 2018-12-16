@@ -32,7 +32,6 @@ describe('Motherships test', () => {
             .end((err, res) => {
                 expect(res.body.ok).to.be.true;
                 res.body.result.should.deep.equal(newMothership);
-                console.log(res.body.result)
                 done();
             })
     })
@@ -47,7 +46,7 @@ describe('Motherships test', () => {
             .send(newMothership)
             .end((err, res) => {
                 expect(res.body.ok).to.be.false;
-                expect(res).to.have.property('error');
+                expect(res.body).to.have.property('error');
                 done();
             })
     });

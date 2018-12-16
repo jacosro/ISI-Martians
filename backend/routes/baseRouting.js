@@ -15,6 +15,11 @@ const responseWithQuery = (res) => (error, result) => {
         return res.status(500).json(errorObject);
     }
 
+    if (!result) {
+        errorObject.error = "La entidad con el id seleccionado no existe"
+        return res.status(404).json(errorObject);
+    }
+
     okObject.result = result;
     return res.json(okObject);
 };
