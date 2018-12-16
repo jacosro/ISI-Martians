@@ -26,12 +26,12 @@ router.post('/', (req, res) => {
     const passengersIds = req.body.passengersIds;
 
     if (!spaceshipId) {
-        errorObject.error = "Falta el parámetro \"spaceshipId\"";
+        errorObject.error = "Falta el parámetro spaceshipId";
         return res.status(400).json(errorObject);
     }
 
     if (!passengersIds) {
-        errorObject.error = "Falta el parámetro \"passengersIds\"";
+        errorObject.error = "Falta el parámetro passengersIds";
         return res.status(400).json(errorObject);
     }
 
@@ -103,9 +103,9 @@ router.post('/', (req, res) => {
             if (error instanceof ParamError) {
                 message = "No se puede crear la inspección: " + error.message;
             } else {
-                message = "No se puede crear la inspección: ya existe una inspección con el id especificado";
+                message = "Error al crear la inspección: Ya existe una inspección con el id especificado";
             }
-            
+
             console.error(error);
             errorObject.error = message;
             return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);

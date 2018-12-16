@@ -28,11 +28,18 @@ router.post('/', (req, res) => {
     const validationError = passenger.validateSync();
 
     if (validationError) {
-        errorObject.error = "Parámetros incorrectos";
+        errorObject.error = "Error al crear pasajero: Revise los parámetros de entrada";
         return res.status(400).json(errorObject);
     }
 
-    Passenger.create(passenger, responseWithQuery(res));
+    Passenger.create(passenger)
+        .then(passenger => {
+            okObject.result = passenger;
+            res.json(okObject);
+        }).catch(error => {
+            errorObject.error = "Error al crear el pasajero: Ya existe un pasajero con esa id";
+            res.status(400).json(errorObject);
+        });
 });
 
 router.post('/:id/board', (req, res) => {
@@ -62,7 +69,8 @@ router.post('/:id/board', (req, res) => {
             okObject.result = null;
             return res.json(okObject);
         }).catch((error) => {
-            errorObject.error = error.message;
+            const message = error instanceof ParamError ? "Error al asignar al pasajero: " + error.message : "Error al asignar al pasajero: Error en la base de datos";
+            errorObject.error = message;
             return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
         });
 });
@@ -95,8 +103,8 @@ router.post('/:id/land', (req, res) => {
             return res.json(okObject);
         })
         .catch(error => {
-            console.error(error);
-            errorObject.error = error.message;
+            const message = error instanceof ParamError ? "Error al bajar al pasajero: " + error.message : "Error al bajar al pasajero: Error en la base de datos";
+            errorObject.error = message;
             return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
         });
 });
