@@ -38,10 +38,8 @@ schema.post('find', async function(docs) {
     }
 })
 
-schema.post('findOne', async function(docs) {
-    for (let doc of docs) {
-        await doc.populate('fromMothership').populate('toMothership').execPopulate();
-    }
+schema.post('findOne', async function(doc) {
+    await doc.populate('fromMothership').populate('toMothership').execPopulate();
 })
 
 module.exports = schema;
