@@ -22,26 +22,26 @@ schema.virtual('passengers', {
     justOne: false
 });
 
-// schema.pre('find', function() {
-//     this.populate('spaceship');
-//     this.populate('passengers')
-// });
+schema.pre('find', function() {
+    this.populate('spaceship');
+    this.populate('passengers')
+});
 
-// schema.pre('findOne', function() {
-//     this.populate('spaceship');
-//     this.populate('passengers')
-// });
+schema.pre('findOne', function() {
+    this.populate('spaceship');
+    this.populate('passengers')
+});
 
-// schema.post('find', async function(docs) {
-//     for (let doc of docs) {
-//         await doc.populate('fromMothership').populate('toMothership').execPopulate();
-//     }
-// })
+schema.post('find', async function(docs) {
+    for (let doc of docs) {
+        await doc.populate('fromMothership').populate('toMothership').execPopulate();
+    }
+})
 
-// schema.post('findOne', async function(docs) {
-//     for (let doc of docs) {
-//         await doc.populate('fromMothership').populate('toMothership').execPopulate();
-//     }
-// })
+schema.post('findOne', async function(docs) {
+    for (let doc of docs) {
+        await doc.populate('fromMothership').populate('toMothership').execPopulate();
+    }
+})
 
 module.exports = schema;
