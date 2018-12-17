@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
         // Check inspection exists
         .then(async inspection => {
             if (inspection !== null) {
-                throw new ParamError("Error al crear la inspección: Ya existe una inspección con el id especificado");
+                throw new ParamError("Ya existe una inspección con el id especificado");
             }
         }).then(() => {
             return Promise.all([
