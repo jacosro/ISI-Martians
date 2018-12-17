@@ -107,7 +107,7 @@ router.post('/', (req, res) => {
         })
         // finally, create inspection if everything went ok
         .then(() => Inspection.create(inspectionData))
-        .then(inspection => {
+        .then(async inspection => {
             okObject.result = inspection;
             return res.json(okObject);
         })
