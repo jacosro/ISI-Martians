@@ -50,79 +50,79 @@ router.post('/', (req, res) => {
         date: date
     }
 
-    Inspection.findOne({ id: req.body.id }, (err, res) => {
-        if (err || res !== null) {
-            errorObject.error = "Error al crear la inspección: Ya existe una inspección con el id especificado";
-            return res.status(400).json(errorObject);
-        }
+    Inspection.findOne({ id: req.body.id })
+        // Check inspection exists
+        .then(async inspection => {
+            if (inspection !== null) {
+                throw new ParamError("Error al crear la inspección: Ya existe una inspección con el id especificado");
+            }
+        }).then(() => {
+            return Promise.all([
+                Spaceship.find({ id: spaceshipId }),
+                Passenger.find({})
+                    .select('id')
+                    .where('id')
+                    .in(passengersIds)
+                    .exec()
+            ])
+        // check spaceship and passengers are correct and validate model
+        }).then(async ([spaceships, passengers]) => {
+            if (!spaceships) {
+                throw new ParamError("La nave especificada no existe");
+            }
 
-        Promise.all([
-            Spaceship.find({ id: spaceshipId }),
-            Passenger.find({})
-                .select('id')
-                .where('id')
-                .in(passengersIds)
-                .exec()
-        ])
-            // check spaceship and passengers are correct and validate model
-            .then(async ([spaceships, passengers]) => {
-                if (!spaceships) {
-                    throw new ParamError("La nave especificada no existe");
-                }
+            const dbPassengers = passengers.map(p => p.id)
 
-                const dbPassengers = passengers.map(p => p.id)
-
-                if (dbPassengers.length != passengersIds.length) {
-                    const inexistents = []
-                    
-                    passengersIds.forEach(id => {
-                        if (!dbPassengers.includes(id)) {
-                            inexistents.push(id);
-                        }
-                    });
-
-                    throw new ParamError("Algunos pasajeros especificados no existen: " + inexistents)
-                }
-
-                const inspection = new Inspection(inspectionData);
-
-                const validationError = inspection.validateSync();
-
-                if (validationError) {
-                    throw validationError;
-                }
-            })
-            // check date
-            .then(() => Inspection.find({ spaceship_id: spaceshipId }).select('date'))
-            .then(async inspections => {
-                for (let inspection of inspections) {
-                    const momentDate = moment(inspection.date);
-                    const now = moment();
-
-                    if (momentDate.isSame(now, 'day')) {
-                        throw new ParamError("Solo se puede realizar una inspección por día en cada nave")
+            if (dbPassengers.length != passengersIds.length) {
+                const inexistents = []
+                
+                passengersIds.forEach(id => {
+                    if (!dbPassengers.includes(id)) {
+                        inexistents.push(id);
                     }
-                }
-            })
-            // finally, create inspection if everything went ok
-            .then(() => Inspection.create(inspectionData))
-            .then(inspection => {
-                okObject.result = inspection;
-                return res.json(okObject);
-            })
-            .catch(error => {
-                let message;
-                if (error instanceof ParamError) {
-                    message = "No se puede crear la inspección: " + error.message;
-                } else {
-                    message = "Error al crear la inspección: Ha habido un error en la base de datos";
-                }
+                });
 
-                console.error(error);
-                errorObject.error = message;
-                return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
-            })
-        });
+                throw new ParamError("Algunos pasajeros especificados no existen: " + inexistents)
+            }
+
+            const inspection = new Inspection(inspectionData);
+
+            const validationError = inspection.validateSync();
+
+            if (validationError) {
+                throw validationError;
+            }
+        })
+        // check date
+        .then(() => Inspection.find({ spaceship_id: spaceshipId }).select('date'))
+        .then(async inspections => {
+            for (let inspection of inspections) {
+                const momentDate = moment(inspection.date);
+                const now = moment();
+
+                if (momentDate.isSame(now, 'day')) {
+                    throw new ParamError("Solo se puede realizar una inspección por día en cada nave")
+                }
+            }
+        })
+        // finally, create inspection if everything went ok
+        .then(() => Inspection.create(inspectionData))
+        .then(inspection => {
+            okObject.result = inspection;
+            return res.json(okObject);
+        })
+        .catch(error => {
+            let message;
+            if (error instanceof ParamError) {
+                message = "No se puede crear la inspección: " + error.message;
+            } else {
+                message = "Error al crear la inspección: Ha habido un error en la base de datos";
+            }
+
+            console.error(error);
+            errorObject.error = message;
+            return res.status(error instanceof ParamError ? 400 : 500).json(errorObject);
+        })
 });
 
 
