@@ -22,19 +22,14 @@
     <th mat-header-cell *matHeaderCellDef>Nave nodriza destino</th>
     <td mat-cell *matCellDef="let spaceship"> {{spaceship.toMothership.name}} </td>
   </ng-container>
-  <ng-container matColumnDef="revision" stickyEnd>
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let passenger">
-      <button mdcIconButton (click)="openRevisionForm(passenger.id)">
-        <mdc-icon>create</mdc-icon>
-      </button>
-    </td>
-  </ng-container>
   <ng-container matColumnDef="filter">
     <td mat-header-row *matHeaderCellDef colspan="2" style="z-index: 0; position: sticky; top:0;">
       <mdc-text-field label="Filtrar" dense (keyup)="applyFilter($event.target.value)" style="margin-left: 8px; margin-top: 4px;">
         <mdc-icon mdcTextFieldIcon leading>search</mdc-icon>
       </mdc-text-field>
+      <button mdc-button secondary style="margin-left: 64px; margin-right: 4px;" (click)="openInspectionForm()">
+        Revisión
+      </button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>

@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Inject, NgModule, OnInit, ViewChild} from '@angular/core';
-import {MDC_DIALOG_DATA, MdcDialog, MdcDialogRef, MdcSnackbar} from '@angular-mdc/web';
-import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
-import {DialogData} from '../mothership/list-mothership.component';
-import {SpaceshipService} from "../../services/spaceshipService";
-import {MothershipService} from "../../services/mothershipService";
-import {MatSort, MatTableDataSource} from "@angular/material";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MdcDialog } from '@angular-mdc/web';
+import { SpaceshipService } from "../../services/spaceshipService";
+import { MatSort, MatTableDataSource } from "@angular/material";
+import { SpaceshipCreateDialog } from "./create-spaceship.dialog";
+import {SpaceshipInspectionDialog} from "./inspection-spaceship.dialog";
 
 @Component({
   selector: 'app-list-spaceship',
@@ -17,7 +16,7 @@ export class ListSpaceshipComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id', 'revision'];
+  columnsToDisplay = ['id', 'name', 'maxPassengers', 'fromMothership_id', 'toMothership_id'];
   myData: Spaceship[] = [
 
   ];
@@ -55,6 +54,18 @@ export class ListSpaceshipComponent implements OnInit {
     });
   }
 
+  openInspectionForm() {
+    const dialogRef = this.dialog.open(SpaceshipInspectionDialog, {
+      escapeToClose: this.escapeToClose,
+      clickOutsideToClose: this.clickOutsideToClose,
+      scrollable: true
+    });
+    dialogRef.componentInstance.onInspection.subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  /*
   openRevisionForm() {
     const dialogRef = this.dialog.open(SpaceshipRevisionDialog, {
       escapeToClose: this.escapeToClose,
@@ -65,150 +76,16 @@ export class ListSpaceshipComponent implements OnInit {
       this.refresh();
     });
   }
+  */
 
+  /**
+   * Refresh Data Table
+   */
   refresh(){
     this.spaceshipService.getAll().subscribe(spaceships => {
       this.dataSource.data = spaceships;
     }, error => {
       console.log(error);
     });
-  }
-}
-
-/*
-  Spaceship Revision Dialog
-*/
-@Component({
-  templateUrl: './revision-spaceship.dialog.html'
-})
-export class SpaceshipRevisionDialog implements OnInit {
-  constructor(public dialogRef: MdcDialogRef<SpaceshipRevisionDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService, public mothershipService: MothershipService) { }
-
-  message = '';
-  action = 'OK';
-  multiline = false;
-  dismissOnAction = true;
-  align = 'center';
-  focusAction = false;
-  actionOnBottom = false;
-  motherships: Mothership[] = [
-
-  ];
-  onCreate = new EventEmitter();
-
-  loadMotherships() {
-    this.mothershipService.getAll()
-      .subscribe(motherships => {
-        this.motherships = motherships;
-      }, error => {
-        console.log(error);
-      });
-  }
-
-  spaceshipRevisionForm = new FormGroup({
-    id: new FormControl('', Validators.required),
-  });
-
-  showSnackbar() {
-    const snackbarRef = this.snackbar.show(this.message, this.action, {
-      align: this.align,
-      multiline: this.multiline,
-      dismissOnAction: this.dismissOnAction,
-      focusAction: this.focusAction,
-      actionOnBottom: this.actionOnBottom,
-    });
-
-    snackbarRef.afterDismiss().subscribe(() => {
-      console.log('The snack-bar was dismissed');
-    });
-  }
-
-  submit(): void {
-    if (this.spaceshipRevisionForm.valid) {
-
-    }
-  }
-
-  ngOnInit(): void {
-    this.loadMotherships()
-  }
-}
-
-@Component({
-  templateUrl: './create-spaceship.dialog.html'
-})
-export class SpaceshipCreateDialog implements OnInit {
-  constructor(public dialogRef: MdcDialogRef<SpaceshipCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public spaceshipService: SpaceshipService, public mothershipService: MothershipService) { }
-
-  message = '';
-  action = 'OK';
-  multiline = false;
-  dismissOnAction = true;
-  align = 'center';
-  focusAction = false;
-  actionOnBottom = false;
-  motherships: Mothership[] = [
-
-  ];
-  onCreate = new EventEmitter();
-
-  loadMotherships() {
-    this.mothershipService.getAll()
-      .subscribe(motherships => {
-        this.motherships = motherships;
-      }, error => {
-        console.log(error);
-      });
-  }
-
-  spaceshipForm = new FormGroup({
-    id: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
-    // name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    maxPassengers: new FormControl('', Validators.required),
-    fromMothership: new FormControl('', Validators.required),
-    toMothership: new FormControl('', Validators.required)
-  });
-
-  showSnackbar() {
-    const snackbarRef = this.snackbar.show(this.message, this.action, {
-      align: this.align,
-      multiline: this.multiline,
-      dismissOnAction: this.dismissOnAction,
-      focusAction: this.focusAction,
-      actionOnBottom: this.actionOnBottom,
-    });
-
-    snackbarRef.afterDismiss().subscribe(() => {
-      console.log('The snack-bar was dismissed');
-    });
-  }
-
-  submit(): void {
-    if (this.spaceshipForm.valid) {
-      let spaceship = {name: this.spaceshipForm.value.name, id: this.spaceshipForm.value.id, maxPassengers: this.spaceshipForm.value.maxPassengers,
-        fromMothership_id: this.spaceshipForm.value.fromMothership,
-        toMothership_id: this.spaceshipForm.value.toMothership
-      };
-      this.spaceshipService.create(spaceship).subscribe(
-        value => {
-          console.log(value);
-          this.message = 'Se ha creado correctamente';
-          this.showSnackbar();
-          this.onCreate.emit();
-        }, error => {
-          console.log(error);
-          this.message = error;
-          this.showSnackbar()
-        }
-      );
-      this.dialogRef.close();
-    }
-  }
-
-  ngOnInit(): void {
-    this.loadMotherships()
   }
 }

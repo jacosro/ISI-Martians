@@ -1,0 +1,33 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Revisar aeronave</mdc-dialog-title>
+      <form [formGroup]="spaceshipInspectionForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content class="app-dialog-content">
+            <mdc-form-field>
+              <mdc-text-field formControlName="id" label="Id" type="number" min=0 dense outlined required></mdc-text-field>
+              <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+            </mdc-form-field>
+            <mdc-form-field>
+              <mdc-text-field formControlName="revisor" label="Nombre revisor" outlined dense required [helperText]="nameHelper"></mdc-text-field>
+              <p #nameHelper="mdcHelperText" mdcTextFieldHelperText validation>*Nombre revisor obligatorio</p>
+            </mdc-form-field>
+            <mdc-form-field>
+              <mdc-text-field formControlName="spaceship_id" type="number" min=0 label="Id aeronave" outlined dense required [helperText]="nummaxHelper"></mdc-text-field>
+              <p #nummaxHelper="mdcHelperText" mdcTextFieldHelperText validation>*Id aeronave obligatorio</p>
+            </mdc-form-field>
+            <mdc-text-field formControlName="date" type="date" #outlinedicon outlined label="Fecha">
+              <mdc-icon mdcTextFieldIcon leading #leadingicon>event</mdc-icon>
+            </mdc-text-field>
+
+
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Crear</button>
+          <!--<button mdcDialogButton type="submit" [disabled]="!spaceshipForm.valid" primary>Crear</button>-->
+        </mdc-dialog-actions>
+      </form>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

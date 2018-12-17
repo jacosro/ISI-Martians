@@ -1,21 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PassengerService } from '../../services/passengerService';
-import { MdcDialog } from '@angular-mdc/web';
-import { MatSort, MatTableDataSource } from "@angular/material";
-import { PassengerBoardDialog } from "./board-passenger.dialog";
-import { PassengerCreateDialog } from "./create-passenger.dialog";
-import { PassengerLandDialog } from "./land-passenger.dialog";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSort, MatTableDataSource} from "@angular/material";
+import {PassengerService} from "../../services/passengerService";
+import {MdcDialog} from "@angular-mdc/web";
+import {PassengerCreateDialog} from "../passenger/create-passenger.dialog";
+import {PassengerBoardDialog} from "../passenger/board-passenger.dialog";
+import {PassengerLandDialog} from "../passenger/land-passenger.dialog";
 
 @Component({
-  selector: 'app-list-passenger',
-  templateUrl: './list-passenger.component.html',
-  styleUrls: ['./list-passenger.component.scss']
+  selector: 'app-list-inspection',
+  templateUrl: './list-inspection.component.html',
+  styleUrls: ['./list-inspection.component.scss']
 })
-export class ListPassengerComponent implements OnInit {
+export class ListInspectionComponent implements OnInit {
+
   escapeToClose = true;
   clickOutsideToClose = true;
   @ViewChild(MatSort) sort: MatSort;
-  columnsToDisplay = ['id', 'name', 'spaceshipId'];
+  columnsToDisplay = ['id', 'name'];
   myData: Passenger[] = [];
   private dataSource: MatTableDataSource<Passenger>;
 
@@ -104,4 +105,5 @@ export class ListPassengerComponent implements OnInit {
       console.log(error);
     });
   }
+
 }

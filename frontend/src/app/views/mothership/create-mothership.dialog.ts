@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Inject } from "@angular/core";
 import { MDC_DIALOG_DATA, MdcDialogRef, MdcSnackbar } from "@angular-mdc/web";
-import { PassengerService } from "../../services/passengerService";
+import { MothershipService } from "../../services/mothershipService";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DialogData } from "../../entities/dialogData";
 
 @Component({
-  templateUrl: './create-passenger.dialog.html'
+  templateUrl: './create-mothership.dialog.html'
 })
-export class PassengerCreateDialog {
-  constructor(public dialogRef: MdcDialogRef<PassengerCreateDialog>,
-              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService) { }
+export class MothershipCreateDialog {
+  constructor(public dialogRef: MdcDialogRef<MothershipCreateDialog>,
+              @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, public mothershipService: MothershipService) { }
 
   message = '';
   action = 'OK';
@@ -20,7 +20,7 @@ export class PassengerCreateDialog {
   actionOnBottom = false;
   onCreate = new EventEmitter();
 
-  passengerForm = new FormGroup({
+  mothershipForm = new FormGroup({
     id: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required)
   });
@@ -40,10 +40,11 @@ export class PassengerCreateDialog {
   }
 
   submit(): void {
-    if (this.passengerForm.valid) {
-      let passenger = {name: this.passengerForm.value.name, id: this.passengerForm.value.id};
-      this.passengerService.create(passenger).subscribe(
+    if (this.mothershipForm.valid) {
+      let mothership = {id: this.mothershipForm.value.id, name: this.mothershipForm.value.name};
+      this.mothershipService.create(mothership).subscribe(
         value => {
+          console.log(value);
           this.message = 'Se ha creado correctamente';
           this.showSnackbar();
           this.onCreate.emit();

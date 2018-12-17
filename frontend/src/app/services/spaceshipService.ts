@@ -1,5 +1,6 @@
 import { BaseService } from './baseService';
 import { Observable } from 'rxjs';
+import {map} from "rxjs/operators";
 
 export class SpaceshipService extends BaseService {
 
@@ -26,6 +27,11 @@ export class SpaceshipService extends BaseService {
     return this.serverPost(this.spaceshipsEndpoint, spaceship);
   }
 
-
+  getPassengers(id: string): Observable<Number[]> {
+    return this.serverGet<Passenger[]>(this.spaceshipsEndpoint + '/' + id + '/getPassengers')
+      .pipe(
+        map(passenger => passenger.map(p => p.id))
+      )
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit } from "@angular/core";
+import { Component, EventEmitter, Inject } from "@angular/core";
 import { MDC_DIALOG_DATA, MdcDialogRef, MdcSnackbar } from "@angular-mdc/web";
 import { PassengerService } from "../../services/passengerService";
 import { SpaceshipService } from "../../services/spaceshipService";
@@ -6,11 +6,11 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DialogData } from "../../entities/dialogData";
 
 @Component({
-  templateUrl: './board-passenger.dialog.html'
+  templateUrl: './land-passenger.dialog.html'
 })
-export class PassengerBoardDialog implements OnInit {
+export class PassengerLandDialog {
   private spaceships: Spaceship[];
-  constructor(public dialogRef: MdcDialogRef<PassengerBoardDialog>, @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService, private spaceshipService: SpaceshipService) { }
+  constructor(public dialogRef: MdcDialogRef<PassengerLandDialog>, @Inject(MDC_DIALOG_DATA) public data: DialogData, private snackbar: MdcSnackbar, private passengerService: PassengerService, private spaceshipService: SpaceshipService) { }
 
   message = '';
   action = 'OK';
@@ -19,9 +19,9 @@ export class PassengerBoardDialog implements OnInit {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
-  onBoard = new EventEmitter();
+  onLand = new EventEmitter();
 
-  passengerBoardForm = new FormGroup({
+  passengerLandForm = new FormGroup({
     spaceshipId: new FormControl('', Validators.required),
     passengerId: new FormControl('', Validators.required)
   });
@@ -50,15 +50,15 @@ export class PassengerBoardDialog implements OnInit {
   }
 
   submit(): void {
-    if (this.passengerBoardForm.valid) {
-      let passengerId = this.passengerBoardForm.value.passengerId;
-      let spaceshipId = this.passengerBoardForm.value.spaceshipId;
-      this.passengerService.board(passengerId, spaceshipId).subscribe(
+    if (this.passengerLandForm.valid) {
+      let passengerId = this.passengerLandForm.value.passengerId;
+      let spaceshipId = this.passengerLandForm.value.spaceshipId;
+      this.passengerService.land(passengerId, spaceshipId).subscribe(
         value => {
           //console.log(value);
-          this.message = 'Se ha asignado correctamente';
+          this.message = 'Se ha bajado correctamente';
           this.showSnackbar();
-          this.onBoard.emit();
+          this.onLand.emit();
         }, error => {
           console.log(error);
           this.message = error;

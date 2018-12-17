@@ -10,6 +10,7 @@ export class BaseService {
   public passengersEndpoint = this.endpoint + '/passengers';
   public spaceshipsEndpoint = this.endpoint + '/spaceships';
   public mothershipsEndpoint = this.endpoint + '/motherships';
+  public inspectionsEndpoint = this.endpoint + '/inspections';
 
   constructor(private http: HttpClient) {
 
