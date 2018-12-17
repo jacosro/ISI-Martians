@@ -23,11 +23,18 @@ router.post('/', (req, res) => {
     const error = mothership.validateSync();
 
     if (error) {
-        errorObject.error = "Error en los parámetros";
+        errorObject.error = "Error al crear la nave nodriza: Revise los parámetros de entrada";
         return res.status(400).json(errorObject);
     }
 
-    Mothership.create(mothership, responseWithQuery(res));
+    Mothership.create(mothership)
+        .then(passenger => {
+            okObject.result = passenger;
+            res.json(okObject);
+        }).catch(error => {
+            errorObject.error = "Error al crear la nave nodriza: Ya existe una nave nodriza con esa id";
+            res.status(400).json(errorObject);
+        });
 });
 
 

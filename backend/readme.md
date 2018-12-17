@@ -84,5 +84,6 @@ Paths:
       - _inspector_ (The name of the inspector)
       - _spaceshipId_ (The id of the spaceship)
       - _passengersIds_ (An array of ids of numbers)
+      - _date_ (The date of the inspection)
 - `/{id}`:
   - **GET**: Gets an inspection by its id

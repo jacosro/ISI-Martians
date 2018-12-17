@@ -11,7 +11,7 @@ const okObject = {
 
 const responseWithQuery = (res) => (error, result) => {
     if (error) {
-        errorObject.error = error.message;
+        errorObject.error = "Error operando con la entidad: Error en la base de datos";
         return res.status(500).json(errorObject);
     }
 
