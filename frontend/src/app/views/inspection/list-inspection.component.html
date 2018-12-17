@@ -1,11 +1,23 @@
-<table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort class="app-table">
+<table mat-table [dataSource]="dataSource" [mdcElevation]="1" matSort multiTemplateDataRows class="app-table">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-    <td mat-cell *matCellDef="let passenger"> {{passenger.id}} </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id Revisión</th>
+    <td mat-cell *matCellDef="let inspection"> {{inspection.id}} </td>
   </ng-container>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-    <td mat-cell *matCellDef="let passenger"> {{passenger.name}} </td>
+  <ng-container matColumnDef="inspector">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Inspector</th>
+    <td mat-cell *matCellDef="let inspection"> {{inspection.inspector}} </td>
+  </ng-container>
+  <ng-container matColumnDef="spaceship_id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id Aeronave</th>
+    <td mat-cell *matCellDef="let inspection"> {{inspection.spaceship_id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="spaceship">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Aeronave</th>
+    <td mat-cell *matCellDef="let inspection"> {{inspection.spaceship.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+    <td mat-cell *matCellDef="let inspection">{{ inspection.date}} </td>
   </ng-container>
   <ng-container matColumnDef="filter">
     <td mat-header-row *matHeaderCellDef colspan="2" style="z-index: 0; position: sticky; top:0;">
@@ -14,6 +26,7 @@
       </mdc-text-field>
     </td>
   </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true;"></tr>
   <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>

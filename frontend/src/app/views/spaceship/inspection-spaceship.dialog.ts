@@ -19,7 +19,7 @@ export class SpaceshipInspectionDialog implements OnInit {
   align = 'center';
   focusAction = false;
   actionOnBottom = false;
-  motherships: Mothership[] = [
+  passengers: Passenger[] = [
 
   ];
   onInspection = new EventEmitter();
@@ -28,7 +28,7 @@ export class SpaceshipInspectionDialog implements OnInit {
     id: new FormControl('', Validators.required),
     revisor: new FormControl('', Validators.required),
     spaceship_id: new FormControl('', Validators.required),
-    date: new FormControl('', [Validators.required, Validators.min(Date.now())])
+    date: new FormControl('', [Validators.required])
   });
 
   showSnackbar() {
@@ -45,10 +45,23 @@ export class SpaceshipInspectionDialog implements OnInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.loadPassengers(filterValue);
+  }
+
+  loadPassengers(id: string){
+    this.spaceshipService.getPassengers(id).subscribe(passengers => {
+      this.passengers = passengers;
+    }, error => {
+      console.log(error);
+    });
+  }
+
   async submit() {
     if (this.spaceshipInspectionForm.valid) {
 
-      const passengersIds: Number[] = await this.spaceshipService.getPassengers(this.spaceshipInspectionForm.value.spaceship_id).toPromise();
+      let spaceshipId = this.spaceshipInspectionForm.value.spaceship_id;
+      const passengersIds: Number[] = await this.spaceshipService.getPassengersIds(this.spaceshipInspectionForm.value.spaceship_id).toPromise();
 
       var inspection : Inspection = {
         id : this.spaceshipInspectionForm.value.id,
