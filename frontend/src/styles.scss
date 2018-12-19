@@ -72,6 +72,7 @@ html, body {
 .app-table {
   margin-bottom: 32px;
   width: 75vw;
+  z-index: 0;
   font-family: Montserrat, Roboto, serif;
   font-weight: 300;
 }
@@ -82,11 +83,31 @@ html, body {
   position: fixed;
 }
 
-mdc-dialog-content {
-  display: flex;
-  flex-direction: column;
+.app-icon-toggle {
+  @include mdc-icon-button-ink-color($mdc-theme-primary);
 }
 
+.app-dialog-content {
+  display: flex;
+  flex-direction: column;
+  overflow: inherit;
+}
+
+
+/**
+Modified z-index of mdc-components for be above the table headers rows
+ */
+.mdc-drawer {
+  z-index: 130;
+}
+
+.mdc-drawer-scrim {
+  z-index: 120;
+}
+
+.mdc-top-app-bar {
+  z-index: 110;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

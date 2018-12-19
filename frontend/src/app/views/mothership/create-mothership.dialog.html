@@ -1,0 +1,23 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Crear nave nodriza</mdc-dialog-title>
+      <form [formGroup]="mothershipForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content class="app-dialog-content">
+          <mdc-form-field>
+            <mdc-text-field formControlName="id" type="number" min=0 label="Id" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+          </mdc-form-field>
+          <mdc-form-field>
+            <mdc-text-field formControlName="name" label="Nombre" dense outlined required></mdc-text-field>
+            <p mdcTextFieldHelperText persistent validation>*Obligatorio</p>
+          </mdc-form-field>
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Crear</button>
+        </mdc-dialog-actions>
+      </form>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

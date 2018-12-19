@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdcTopAppBar } from '@angular-mdc/web';
-import { NavigationStart, Router} from '@angular/router';
-import {Observable} from "rxjs";
+import { NavigationStart, Router } from '@angular/router';
+import { Observable } from "rxjs";
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -23,9 +23,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.navStart.subscribe(evt => {
       switch (evt.url) {
-        case '/list-spaceship' : this.title = 'Aeronaves'; break;
-        case '/list-mothership' : this.title = 'Naves nodrizas'; break;
-        case '/list-passenger' : this.title = 'Pasajeros'; break;
+        case '/#' : this.title = 'SIGEM' ; break;
+        case '/inspection' : this.title = 'Inspecciones'; break;
+        case '/spaceship' : this.title = 'Aeronaves'; break;
+        case '/mothership' : this.title = 'Naves nodrizas'; break;
+        case '/passenger' : this.title = 'Pasajeros'; break;
       }
     });
   }

@@ -1,0 +1,20 @@
+<mdc-dialog>
+  <mdc-dialog-container>
+    <mdc-dialog-surface>
+      <mdc-dialog-title>Revisar aeronave</mdc-dialog-title>
+      <form [formGroup]="spaceshipRevisionForm" (ngSubmit)="submit()" autocomplete="off">
+        <mdc-dialog-content class="app-dialog-content">
+            <mdc-form-field>
+              <mdc-text-field formControlName="id" label="Id" type="number" min=0 dense outlined required></mdc-text-field>
+              <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
+            </mdc-form-field>
+        </mdc-dialog-content>
+        <mdc-dialog-actions>
+          <button mdcDialogButton type="button" mdcDialogAction="close">Cancelar</button>
+          <button mdcDialogButton type="submit" primary>Crear</button>
+          <!--<button mdcDialogButton type="submit" [disabled]="!spaceshipForm.valid" primary>Crear</button>-->
+        </mdc-dialog-actions>
+      </form>
+    </mdc-dialog-surface>
+  </mdc-dialog-container>
+</mdc-dialog>

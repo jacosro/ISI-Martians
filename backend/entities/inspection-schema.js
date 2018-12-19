@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
 const baseSchema = require('./base-schema');
 
 const schema = baseSchema({
-    id: Number,
-    inspector: String,
-    spaceship_id: Number,
-    date: Date,
-    passengers_id: [Number]
+    id: { type: Number, unique: true, required: true, dropDups: true },
+    inspector: { type: String, required: true },
+    spaceship_id: { type: Number, required: true },
+    date: { type: Date, required: true },
+    passengers_ids: { type: [Number], required: true },
 });
 
 schema.virtual('spaceship', {
@@ -18,7 +17,7 @@ schema.virtual('spaceship', {
 
 schema.virtual('passengers', {
     ref: 'Passenger',
-    localField: 'passengers_id',
+    localField: 'passengers_ids',
     foreignField: 'id',
     justOne: false
 });
@@ -33,16 +32,21 @@ schema.pre('findOne', function() {
     this.populate('passengers')
 });
 
-schema.post('find', async function(docs) {
-    for (let doc of docs) {
-        await doc.populate('fromMothership').populate('toMothership').execPopulate();
-    }
+schema.post('save', function(doc, next) {
+    doc.populate('spaceship').populate('passengers').execPopulate().then(() => {
+        next();
+    })
 })
 
-schema.post('findOne', async function(docs) {
-    for (let doc of docs) {
-        await doc.populate('fromMothership').populate('toMothership').execPopulate();
-    }
-})
+// schema.post('find', async function(docs) {
+//     for (let doc of docs) {
+//         await doc.populate('fromMothership').populate('toMothership').execPopulate();
+//     }
+// })
+
+// schema.post('findOne', async function(doc) {
+//     if (doc !== null)
+//         await doc.populate('fromMothership').populate('toMothership').execPopulate();
+// })
 
 module.exports = schema;
