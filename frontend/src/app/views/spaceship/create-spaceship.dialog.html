@@ -9,12 +9,12 @@
               <p mdcTextFieldHelperText persistent validation>*Id obligatorio</p>
             </mdc-form-field>
             <mdc-form-field>
-              <mdc-text-field formControlName="name" label="Nombre" outlined dense required [helperText]="nameHelper"></mdc-text-field>
-              <p #nameHelper="mdcHelperText" mdcTextFieldHelperText validation>*Nombre obligatorio</p>
+              <mdc-text-field formControlName="name" label="Nombre" outlined dense required></mdc-text-field>
+              <p mdcTextFieldHelperText validation>*Nombre obligatorio</p>
             </mdc-form-field>
             <mdc-form-field>
-              <mdc-text-field formControlName="maxPassengers" type="number" min=0 label="Número máximo" outlined dense required [helperText]="nummaxHelper"></mdc-text-field>
-              <p #nummaxHelper="mdcHelperText" mdcTextFieldHelperText validation>*Número máximo obligatorio</p>
+              <mdc-text-field formControlName="maxPassengers" type="number" min=0 label="Número máximo" outlined dense required></mdc-text-field>
+              <p mdcTextFieldHelperText validation>*Número máximo obligatorio</p>
             </mdc-form-field>
             <div style="display: flex;">
               <mdc-form-field>

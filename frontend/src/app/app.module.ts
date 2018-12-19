@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material';
 import { MatSortModule } from "@angular/material";
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListSpaceshipComponent } from './views/spaceship/list-spaceship.component';
@@ -54,7 +53,6 @@ const appRoutes: Routes = [
     ),
     AppMaterialModule,
     MatTableModule,
-    MatDatepickerModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatSortModule

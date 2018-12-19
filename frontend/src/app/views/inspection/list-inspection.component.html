@@ -27,7 +27,34 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <mdc-list-group subheader="Pasajeros" style="margin-bottom: 24px;">
+          <mdc-list interactive="false" border="true" *ngFor="let passenger of element.passengers">
+            <mdc-list-item>
+              <mdc-icon mdcListItemGraphic>
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    d="M7,6H5V4H7V6M17,6H19V4H17V6M23,12V18H21V14H19V18H17V16H7V18H5V14H3V18H1V12H3V10H5V8H7V6H9V8H15V6H17V8H19V10H21V12H23M15,10V12H17V10H15M7,12H9V10H7V12M11,18H7V20H11V18M17,18H13V20H17V18Z"></path>
+                </svg>
+              </mdc-icon>
+              {{passenger.name}}
+            </mdc-list-item>
+          </mdc-list>
+        </mdc-list-group>
+      </div>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="['filter']; sticky:true"></tr>
+
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true;"></tr>
-  <tr mat-row *matRowDef="let dataSource; columns: columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>

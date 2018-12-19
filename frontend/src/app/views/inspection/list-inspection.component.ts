@@ -17,7 +17,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
 })
 export class ListInspectionComponent implements OnInit {
-  expandedElement: Inspection;
+  expandedElement: Inspection | null;
   @ViewChild(MatSort) sort: MatSort;
   columnsToDisplay = ['id', 'inspector', 'spaceship_id', 'spaceship', 'date'];
   myData: Inspection[] = [];
