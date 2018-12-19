@@ -15,7 +15,7 @@ export class ListPassengerComponent implements OnInit {
   escapeToClose = true;
   clickOutsideToClose = true;
   @ViewChild(MatSort) sort: MatSort;
-  columnsToDisplay = ['id', 'name', 'spaceshipId'];
+  columnsToDisplay = ['id', 'name', 'spaceshipId', 'spaceship'];
   myData: Passenger[] = [];
   private dataSource: MatTableDataSource<Passenger>;
 
