@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  title = 'SIGEM';
+  title = '';
   @ViewChild('topAppBar') topAppBar: MdcTopAppBar;
 
   navStart: Observable<NavigationStart>;
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     this.navStart.subscribe(evt => {
       switch (evt.url) {
         case '/#' : this.title = 'SIGEM' ; break;
+        case '/' : this.title = '' ; break;
         case '/inspection' : this.title = 'Inspecciones'; break;
         case '/spaceship' : this.title = 'Aeronaves'; break;
         case '/mothership' : this.title = 'Naves nodrizas'; break;
