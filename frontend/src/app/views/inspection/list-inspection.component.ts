@@ -3,7 +3,8 @@ import {MatSort, MatTableDataSource} from "@angular/material";
 import {MdcDialog} from "@angular-mdc/web";
 import {InspectionService} from "../../services/inspectionService";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-
+import * as moment from 'moment';
+import {forEach} from "@angular/router/src/utils/collection";
 @Component({
   selector: 'app-list-inspection',
   templateUrl: './list-inspection.component.html',
@@ -38,6 +39,9 @@ export class ListInspectionComponent implements OnInit {
   public loadInspections() {
     this.inspectionService.getAll()
       .subscribe(inspections => {
+        for (let inspection of inspections) {
+          inspection.date = moment(inspection.date).format('LL');
+        }
         this.myData = inspections;
         this.dataSource = new MatTableDataSource(this.myData)
         this.dataSource.sort = this.sort;
