@@ -70,38 +70,29 @@ export class SpaceshipInspectionDialog implements OnInit {
         date: this.spaceshipInspectionForm.value.date,
         passengersIds: passengersIds
       };
-
-      this.inspectionService.create(inspection).subscribe(
-        value => {
-          console.log(value);
-          this.message = 'Se ha creado correctamente';
-          this.showSnackbar();
-          this.onInspection.emit();
-        }, error => {
-          console.log(error);
-          this.message = error;
-          this.showSnackbar()
-        }
-      );
-
+      await this.spaceshipService.get(this.spaceshipInspectionForm.value.spaceship_id).subscribe(spaceship => {
+        this.inspectionService.create(inspection).subscribe(
+          value => {
+            console.log(value);
+            this.message = 'Se ha creado correctamente';
+            this.showSnackbar();
+            this.onInspection.emit();
+          }, error => {
+            console.log(error);
+            this.message = error;
+            this.showSnackbar()
+          }
+        );
+      }, error => {
+        console.log(error);
+        this.message = error;
+        this.showSnackbar();
+      });
       this.dialogRef.close();
-    } else {
-      this.validateAllFormFields(this.spaceshipInspectionForm);
     }
   }
 
   ngOnInit(): void {
 
-  }
-
-  validateAllFormFields(formGroup: FormGroup) {         //{1}
-    Object.keys(formGroup.controls).forEach(field => {  //{2}
-      const control = formGroup.get(field);             //{3}
-      if (control instanceof FormControl) {             //{4}
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        //{5}
-        this.validateAllFormFields(control);            //{6}
-      }
-    });
   }
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="258px" height="258px" viewBox="0 0 258 258" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>背景 + 飞船尾巴 + 星星 + 星星 + 飞船 Mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="129" cy="129" r="129"></circle>
+        <linearGradient x1="50%" y1="100%" x2="50%" y2="0%" id="linearGradient-3">
+            <stop stop-color="#7BB0FF" offset="0%"></stop>
+            <stop stop-color="#081B37" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.3115455%" y1="0%" x2="49.3115455%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#94ABBD" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.3570595%" y1="0%" x2="49.3570596%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M143.775233,150 C150.734661,212.445806 203.697111,261 268,261 C300.82564,261 330.696023,248.347039 353,227.652264 L353,353.993687 C353,354.549458 352.549136,355 351.99191,355 L-87.9919097,355 C-88.5486626,355 -89,354.548559 -89,353.993687 L-89,232.876032 C-67.4677877,250.456112 -39.9652223,261 -10,261 C54.3028895,261 107.265339,212.445806 114.224767,150 L143.775233,150 Z" id="path-6"></path>
+        <linearGradient x1="50%" y1="50%" x2="49.8025391%" y2="50%" id="linearGradient-7">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-8">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M13.4936094,73.2665142 C13.4936094,73.2665142 2.99794583,76.0898428 0.154535123,84.8738503 C-2.68887558,93.6578578 11.9653619,137.674585 11.9653619,137.674585 L14.9290388,137.674585 C14.9290388,137.674585 29.7143763,93.7168371 26.8326837,84.8738503 C23.950991,76.0308635 13.4936094,73.2665142 13.4936094,73.2665142 Z" id="path-9"></path>
+        <path d="M69.7074025,73.2665142 C69.7074025,73.2665142 59.2117389,76.0898428 56.3683282,84.8738503 C53.5249175,93.6578578 68.179155,137.674585 68.179155,137.674585 L71.1428319,137.674585 C71.1428319,137.674585 85.9281694,93.7168371 83.0464768,84.8738503 C80.1647842,76.0308635 69.7074025,73.2665142 69.7074025,73.2665142 Z" id="path-10"></path>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-11">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.392889493" offset="100%"></stop>
+        </linearGradient>
+        <path d="M41.5335341,65.9182099 C41.5335341,65.9182099 26.7275862,95.6974141 26.7275862,119.637564 C26.7275862,143.577714 41.5335341,161.086034 41.5335341,161.086034 C41.5335341,161.086034 56.3137931,143.610599 56.3137931,119.637564 C56.3137931,95.6645285 41.5335341,65.9182099 41.5335341,65.9182099 Z" id="path-12"></path>
+        <linearGradient x1="50%" y1="27.4839364%" x2="50%" y2="100%" id="linearGradient-13">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.369565217" offset="100%"></stop>
+        </linearGradient>
+        <path d="M41.5309652,49.8128858 C41.5309652,49.8128858 29.6862069,69.456326 29.6862069,103.53224 C29.6862069,137.608154 41.5309652,144.98071 41.5309652,144.98071 C41.5309652,144.98071 53.3551724,137.493345 53.3551724,103.53224 C53.3551724,69.5711343 41.5309652,49.8128858 41.5309652,49.8128858 Z" id="path-14"></path>
+        <path d="M41.4255242,0 C41.4255242,0 11.5,22.9993202 11.5,62.2532341 C11.5,101.507148 41.5260482,110 41.5260482,110 C41.5260482,110 71.5,101.374894 71.5,62.2532341 C71.5,23.1315742 41.4255242,0 41.4255242,0 Z" id="path-15"></path>
+        <path d="M50.065377,8.38141047 C47.5846952,9.42391463 44.8596418,10 42,10 C38.8244783,10 35.8152333,9.28973475 33.1223364,8.01943521 C37.8253003,2.76695908 41.4255242,0 41.4255242,0 C41.4255242,0 45.1952317,2.89944433 50.065377,8.38141047 Z" id="path-16"></path>
+        <rect id="path-17" x="29.5" y="32.6604938" width="24" height="24" rx="12"></rect>
+        <polyline id="path-18" points="41.5 73 32.5 84.0000002 38.531311 137.014382 44.536438 137.014382 50.5 84"></polyline>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-1" transform="translate(-71.000000, -21.000000)">
+            <g id="背景-+-飞船尾巴-+-星星-+-星星-+-飞船-Mask" transform="translate(71.000000, 21.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask" fill-rule="nonzero"></g>
+                <rect id="背景" fill="url(#linearGradient-3)" opacity="0.453859608" mask="url(#mask-2)" x="-71" y="-21" width="400" height="300" rx="1"></rect>
+                <g id="飞船尾巴" style="mix-blend-mode: overlay;" mask="url(#mask-2)">
+                    <use fill="#DBEFFF" xlink:href="#path-6"></use>
+                    <use fill-opacity="0.2" fill="url(#linearGradient-4)" style="mix-blend-mode: overlay;" xlink:href="#path-6"></use>
+                    <use fill="url(#linearGradient-5)" style="mix-blend-mode: overlay;" xlink:href="#path-6"></use>
+                </g>
+                <g id="星星" style="mix-blend-mode: overlay;" mask="url(#mask-2)">
+                    <g transform="translate(-65.000000, -6.000000)">
+                        <g id="Star-1" transform="translate(63.000000, 21.000000)">
+                            <polygon fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy" transform="translate(118.000000, 2.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy-2" transform="translate(293.000000, 112.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy-6" transform="translate(255.000000, 177.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="2 3 0.824429495 3.61803399 1.04894348 2.30901699 0.0978869674 1.38196601 1.41221475 1.19098301 2 0 2.58778525 1.19098301 3.90211303 1.38196601 2.95105652 2.30901699 3.1755705 3.61803399"></polygon>
+                        </g>
+                    </g>
+                </g>
+                <g id="星星" style="mix-blend-mode: overlay;" mask="url(#mask-2)">
+                    <g transform="translate(29.000000, 35.000000)">
+                        <g id="Star-1" transform="translate(63.000000, 28.000000)">
+                            <polygon fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy" transform="translate(118.000000, 9.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy-4" transform="translate(50.000000, 166.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="3.5 5.25 1.44275162 6.33155948 1.8356511 4.04077974 0.171302193 2.41844052 2.47137581 2.08422026 3.5 0 4.52862419 2.08422026 6.82869781 2.41844052 5.1643489 4.04077974 5.55724838 6.33155948"></polygon>
+                        </g>
+                        <g id="Star-1-Copy-5" transform="translate(0.000000, 65.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="2 3 0.824429495 3.61803399 1.04894348 2.30901699 0.0978869674 1.38196601 1.41221475 1.19098301 2 0 2.58778525 1.19098301 3.90211303 1.38196601 2.95105652 2.30901699 3.1755705 3.61803399"></polygon>
+                        </g>
+                        <g id="Star-1-Copy-3" transform="translate(216.000000, 0.000000)">
+                            <polygon id="Star-1" fill="#FFFFFF" points="2.5 3.75 1.03053687 4.52254249 1.31117935 2.88627124 0.122358709 1.72745751 1.76526843 1.48872876 2.5 0 3.23473157 1.48872876 4.87764129 1.72745751 3.68882065 2.88627124 3.96946313 4.52254249"></polygon>
+                        </g>
+                    </g>
+                </g>
+                <g id="飞船" mask="url(#mask-2)">
+                    <g transform="translate(87.500000, 28.000000)">
+                        <g id="翅膀">
+                            <use fill="#B95656" xlink:href="#path-9"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-9"></use>
+                            <use fill-opacity="0.2" fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-9"></use>
+                        </g>
+                        <g id="翅膀">
+                            <use fill="#B95656" xlink:href="#path-10"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-10"></use>
+                            <use fill-opacity="0.2" fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-10"></use>
+                        </g>
+                        <g id="火焰">
+                            <use fill="#D5925B" xlink:href="#path-12"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-12"></use>
+                            <use fill="url(#linearGradient-11)" style="mix-blend-mode: overlay;" xlink:href="#path-12"></use>
+                        </g>
+                        <g id="火焰">
+                            <use fill="#F1CC83" xlink:href="#path-14"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-14"></use>
+                            <use fill="url(#linearGradient-13)" style="mix-blend-mode: overlay;" xlink:href="#path-14"></use>
+                        </g>
+                        <g id="主题">
+                            <use fill="#DFDFDF" xlink:href="#path-15"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-15"></use>
+                            <use fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-15"></use>
+                        </g>
+                        <g id="尖">
+                            <use fill="#B95656" xlink:href="#path-16"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-16"></use>
+                            <use fill-opacity="0.2" fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-16"></use>
+                        </g>
+                        <g id="窗子">
+                            <use fill="#4C5665" xlink:href="#path-17"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-17"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-17"></use>
+                        </g>
+                        <g id="翅膀">
+                            <use fill="#B95656" xlink:href="#path-18"></use>
+                            <use fill-opacity="0.1" fill="url(#linearGradient-7)" xlink:href="#path-18"></use>
+                            <use fill-opacity="0.2" fill="url(#linearGradient-8)" style="mix-blend-mode: overlay;" xlink:href="#path-18"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
